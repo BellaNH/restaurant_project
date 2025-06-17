@@ -1,0 +1,142 @@
+.footer{
+    height: auto;
+    width: 100%;
+    color: white;
+    background: #323232;
+    font-size: 1vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;   
+    position: relative;
+    bottom: 0;
+}
+.admin_footer{
+    height: auto;
+    width: 85%;
+    color: white;
+    background: #323232;
+    font-size: 1vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;   
+    margin-bottom: 0;
+    position: relative;
+    bottom: 0;
+}
+
+.footer-content{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    width: 100%;
+    gap:3vw;
+    text-align: left;
+}
+.footer-content .left{
+    padding: 3vw 3vw 1vw 7vw;
+}
+.footer-left-logo{
+    width: 13vw;
+    height: 2vw;
+    margin-bottom: 1vw;
+    margin-left: 0;
+}
+.left-footer-text{
+    font-weight: 500;
+    margin-bottom: 1vw;
+}
+.footer-content .center{
+    padding: 3vw 0 0 0 ;
+}
+
+.footer-title{
+    font-size: 1.2vw;
+    margin-bottom: 1vw;
+}
+.footer-content .center ul{
+    list-style: none;
+    font-size: 1vw;
+}
+.footer-content .center ul li{
+    margin-top:0.5vw;
+    cursor: pointer;
+}
+.footer-content .right{
+    padding: 3vw 8vw 0 0;
+}
+.right-footer-text{
+    margin-top:0.5vw;
+}
+.social-icons{
+    display: flex;
+    align-items: center;
+    gap: 2vw;
+    width:fit-content;
+    margin-left: 0;
+}
+.f-img,.t-img,.l-img{
+    width: 2vw;
+}
+.footer hr{
+    width: 85%;
+}
+.copyright{
+    padding: 1.5vw;
+    font-weight: 500;
+}
+@media (max-width:850px){
+    .left-footer-text{
+        font-size: 1.2vw;
+    }
+    .f-img,.t-img,.l-img{
+        width: 2.5vw;
+    }
+    .footer-left-logo{
+        width: 11vw;
+    }
+    .right-footer-text{
+        font-size: 1.2vw;
+    }
+    .footer-content .center ul{
+        font-size: 1.2vw;
+    }
+    .footer-title{
+        font-size: 1.5vw;
+    }
+    .copyright{
+        font-size: 1.2vw;
+    }
+}
+@media (max-width:550px){
+    .footer-content{
+        display: flex;
+        flex-direction: column;
+        
+    }
+    .left-footer-text{
+        font-size: 1.8vw;
+        width: 80%;
+        margin-bottom: 1.5vw;
+    }
+    .f-img,.t-img,.l-img{
+        width: 3vw;
+    }
+    .footer-left-logo{
+        width: 14vw;
+        height: 3vw;
+        margin-bottom: 2vw;
+    }
+    .right-footer-text{
+        font-size: 1.2vw;
+    }
+    .footer-content .center ul{
+        font-size: 1.2vw;
+    }
+    .footer-title{
+        font-size: 1.5vw;
+    }
+    .copyright{
+        font-size: 1.2vw;
+    }
+}

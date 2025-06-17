@@ -1,0 +1,139 @@
+.login-container{
+    position: fixed;
+    background-color: #00000090;
+    width: 100%;
+    height: 100vh;
+    z-index: 999;
+    top:0;
+}
+.login-form{
+    background-color: white;
+    width: 30%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:1.5vw;
+    padding: 2vw 2.5vw 2vw;
+    border-radius: 4px;
+    margin-left: 32%;
+    margin-top: 5%;
+}
+.form-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.close-icon{
+    width: 1.5vw;
+    height: 1.5vw;
+    cursor: pointer;
+}
+.login-title{
+    font-size: 1rem;
+}
+.form-inputs{
+    padding: 0.6vw 0.5vw 0.3vw;
+    border-radius: 4px;
+    outline: none;
+    border: 1px solid #c9c9c9;
+}
+.forget-password-text{
+    color: #6366F1;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.login-form-btn{
+    width: 100%;
+    background-color: orange;
+    padding: 0.8vw;
+    text-align: center;
+    border: none;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+.login-signup-text{
+    font-size: 0.7rem;
+    color: #c9c9c9;
+    font-weight: 500;
+}
+.login-signup-text span{
+    color: tomato;
+    font-weight: 700;
+    cursor: pointer;
+}
+@media (max-width: 850px) {
+  .login-form {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 2vw;
+  }
+  .close-icon{
+    width: 2vw;
+    height: 2vw;
+    cursor: pointer;
+}
+
+  .login-title {
+    font-size: 0.95rem;
+  }
+
+  .form-inputs {
+    padding: 0.6vw;
+  }
+  .form-inputs::placeholder {
+    font-size: 0.7rem;
+  }
+
+  .forget-password-text {
+    font-size: 0.75rem;
+  }
+
+  .login-form-btn {
+    padding: 1.2vw;
+    font-size: 0.85rem;
+  }
+
+  .login-signup-text {
+    font-size: 0.7rem;
+  }
+
+}
+
+@media (max-width: 550px) {
+  .login-form {
+    width: 50%;
+    gap: 3vw;
+    margin-top: 10%;
+  }
+
+  .login-title {
+    font-size: 0.9rem;
+  }
+
+  .form-inputs {
+    padding: 1.2vw;
+  }
+
+
+  .forget-password-text {
+    font-size: 0.7rem;
+  }
+
+  .login-form-btn {
+    font-size: 0.8rem;
+  }
+
+  .login-signup-text {
+    font-size: 0.65rem;
+  }
+
+  .close-icon {
+    width: 4vw;
+    height: 4vw;
+  }
+}

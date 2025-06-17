@@ -1,0 +1,221 @@
+.navbar{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 2vw 1vw;
+    position: fixed;
+    top:0;
+    left:0; 
+    z-index: 2;
+    width: 100%;
+    height: fit-content ;
+    background-color: white;
+    border-bottom: 1.3px solid tomato;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+Link{
+  width: auto;
+ 
+}
+  .logo{
+    margin-left: 8%;
+    width: 15vw;
+  }
+
+  .nav-links{
+    list-style: none;
+    display: flex;
+    gap:2vw;
+    color: hsl(226, 27%, 39%);
+    font-size: 1.5vw;
+    cursor: pointer;
+    width: auto;
+    margin-left: 15%;
+  }
+  .nav-links a{
+    width: auto;
+  }
+  .active-link{
+    padding-bottom: 0.5vw;
+    border-bottom: 0.2vw solid hsl(226, 27%, 39%);
+  }
+  .right-navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2vw; 
+  width: fit-content;
+  margin-right: 5%;
+  flex-wrap: nowrap;
+
+}
+
+  .basket-icon-container{
+    width: fit-content;
+    position: relative;
+    }
+  .basket-icon{
+    cursor: pointer;
+    width: 38px;
+    height: 20px;
+  }
+  .dot{
+    background-color: tomato;
+    width:0.5vw;
+    height:0.5vw;
+    border-radius: 50%;
+    position: absolute;
+    top:0;
+    left:2.5vw;
+
+  }
+  .signup-btn {
+  position: absolute;
+  right: 10%;
+  background-color: tomato;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  padding: 10px 25px;      /* reduced vertical padding */
+  font-size: 0.6rem;
+  font-weight: 600;             /* set fixed height to match profile pic */
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  align-self: center;         /* ensures it's vertically centered */
+}
+
+  .signup-btn:hover{
+    background-color: 	#F57F17;;
+  }   
+  .profile-drop-down-container{
+    position: relative;
+    cursor: pointer;
+  }
+  .navbar-profile-pic{
+    width:2.1vw;
+    height: 2.1vw;
+
+  }
+.dropdown-container {
+  position: absolute;
+  left: -5vw;
+  top: 2.8vw;
+  width: 14vw;
+  background-color: #fff4f2;
+  border-radius: 0.5vw;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  padding: 0.5vw 0;
+  transition: all 0.3s ease;
+}
+
+.drop-down-element {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  padding: 0.3vw 1vw;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.drop-down-element:hover {
+  background-color: #ffe5e0;
+}
+
+.drop-down-element-img {
+  width: 1.8vw;
+  height: 1.8vw;
+}
+
+.dropdown-container hr {
+  margin: 0.2vw 0;
+  border: none;
+  height: 1px;
+  background-color: #e0e0e0;
+}
+
+
+  @media (max-width: 850px) {
+  .nav-links {
+    gap: 1.2vw;
+    font-size: 1.4vw;
+    flex-shrink: 1;
+    min-width: 0;
+    margin-left: 18%;
+  }
+  .signup-btn {
+    padding: 8px 25px;  
+    font-size: 0.65rem;
+    margin-left: 16%;
+  }
+  .dropdown-container {
+    width: 20vw;
+    left: -9vw;
+    top: 4.5vw;
+    border-radius: 1vw;
+  }
+
+  .drop-down-element {
+    gap: 2vw;
+    padding: 1vw 1.5vw;
+  }
+
+  .drop-down-element-img {
+    width: 3vw;
+    height: 3vw;
+  }
+
+}
+
+@media (max-width: 550px) {
+  .nav-links {
+    gap: 1vw;
+    font-size: 2.2vw;
+    flex-shrink: 1;
+    min-width: 0;
+    margin-left: 8%;
+  }
+
+  .signup-btn {
+    padding: 9px 14px;  
+    font-size: 0.5rem;
+    height: 1.8vh;
+    margin-left: 10%;
+  }
+
+
+  .right-navbar {
+    gap: 1vw;
+  }
+  .navbar-profile-pic{
+    width:2.5vw;
+    height: 2.5vw;
+
+  }
+  .basket-icon {
+    width: 18px;
+    height: 12px;
+  }
+  .dropdown-container {
+    width: 40vw;
+    left: -19vw;
+    top: 5.5vw;
+    border-radius: 2vw;
+  }
+
+  .drop-down-element {
+    gap: 3vw;
+    padding: 1.5vw 2vw;
+  }
+
+  .drop-down-element-img {
+    width: 4vw;
+    height: 4vw;
+  }
+}
+
+ 

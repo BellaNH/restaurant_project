@@ -1,0 +1,22 @@
+.spinner-container{
+    margin: 0 auto;
+    height:25vh;
+    width: 15vw;
+    display: grid;
+    z-index: 1;
+    padding: 22vh;
+}
+.spinner{
+    place-self: center;
+    width: 16vh;
+    height: 16vh;
+    border-radius: 50%;
+    border: 3px solid #bdbdbd;
+    border-top-color:tomato ;
+    animation: rotate infinite 1s ;
+}
+@keyframes rotate {
+    100%{
+        transform: rotate(360deg);
+    }
+}

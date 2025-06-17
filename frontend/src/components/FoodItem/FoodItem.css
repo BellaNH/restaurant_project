@@ -1,0 +1,150 @@
+.item-container {
+    width: 100%;
+    height: clamp(250px, 40vh, 250px); /* NEW */
+    border-radius: 8px;
+    transition: 0.1s;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.img-container{
+    position: relative;
+    width: 100%;
+    height: 50%;
+}
+.item-img{
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    width: 100%;
+    height: 100%;
+}
+.add-item-icon{
+    bottom: 1vw;
+    position: absolute;
+    right: 1vw;
+    width: 2vw;
+    height: 2vw;
+    cursor: pointer;
+}
+.item-counter{
+    position: absolute;
+    bottom: 1vw;
+    right: 1vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.5vw;
+    width: 6vw;
+    height: 2.7vw;
+    background-color: white;
+    border-radius: 15px;
+    text-align: center;
+}
+.add-item-counter{
+    width: 1.8vw;
+    height: 1.8vw;
+    cursor: pointer;
+}
+.remove-item-counter{
+    width: 1.8vw;
+    height: 1.8vw;
+    cursor: pointer;
+}
+.counter-display{
+    font-size: 1vw;
+}
+.item-name-rate{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5vw 1.5vw 0.7vw 1.5vw;
+}
+.item-name {
+  font-size: 1vw;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif; /* Or 'Inter', 'Nunito', etc. */
+  color: #2c2c2c;  /* Darker tone */
+  letter-spacing: 0.03rem; /* Slight spacing for clarity */
+}
+
+.item-rating{
+    width: 7vw;
+    height: 1vw;
+}
+.item-desc {
+  font-size: 1vw;
+  font-family: 'Open Sans', sans-serif;
+  color: #555;
+  line-height: 1.4;
+  padding: 0 1.5vw 1vw;
+}
+
+.item-price{
+    font-weight: 500;
+    font-size: 16px;
+    color: tomato;
+    margin:0 1.5vw 2vw;
+}
+@media (max-width:850px){
+    .add-item-icon{
+        width: 2.7vw;
+        height: 2.7vw;
+    }
+    .item-counter{
+        width: 6.8vw;
+        height: 3.2vw;
+    }
+    .add-item-counter,
+    .remove-item-counter{
+        width: 2.2vw;
+        height: 2.2vw;
+    }
+    .counter-display{
+        font-size: 1.5vw;
+    }
+    .item-name{
+        font-size: 1.7vw;
+    }
+    .item-rating{
+        width: 7.5vw;
+        height: 1.5vw;
+    }
+    .item-desc{
+        font-size: 1.5vw;
+    }
+    .item-price{
+        font-size: 18px;
+    }
+}
+@media (max-width:550px){
+    .add-item-icon{
+        width: 3.5vw;
+        height: 3.5vw;
+        bottom: 1.3vw;
+    }
+    .item-counter{
+        width: 7.4vw;
+        height: 3.6vw;
+        bottom: 1.3vw;
+    }
+    .add-item-counter,
+    .remove-item-counter{
+        width: 2.5vw;
+        height: 2.5vw;
+    }
+    .counter-display{
+        font-size: 1.7vw;
+    }
+    .item-name{
+        font-size: 2.7vw;
+    }
+    .item-rating{
+        width: 9.3vw;
+        height: 2.5vw;
+    }
+    .item-desc{
+        font-size: 2.4vw;
+    }
+    .item-price{
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,136 @@
+.orders-table {
+  width: 100%;
+  margin-top: 11%;
+  padding-bottom: 7vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
+}
+
+.orders-table-title {
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+  margin-bottom: 1.5vw;
+  color: #333;
+}
+
+.orders-table-row {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr 1fr 1fr 1.5fr;
+  align-items: center;
+  border: 1px solid #a9a9a9;
+  padding: 1vw;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: clamp(0.8rem, 1vw, 0.9rem);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  gap: 1vw;
+}
+
+.orders-table-row-img {
+  width: 3vw;
+  height: 3vw;
+  object-fit: contain;
+  margin-left: 0;
+}
+
+.order-infos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vw;
+}
+
+.orders-table-row-container {
+  display: flex;
+  justify-content: center;
+  gap: 3vw;
+}
+
+.orders-table-row-container-name {
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: #222;
+  width: 8vw;
+ 
+}
+
+.orders-table-row-text {
+  color: #444;
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+
+.orders-table-row-select {
+  padding: 0.5vw 1.2vw;
+  text-align: center;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  height: 3vw;
+  background-color: #f7931e;
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.orders-table-row-select:hover {
+  background-color: #e4810f;
+}
+
+.orders-table-row-select-option {
+  color: black;
+  background-color: #fff;
+  text-align: left;
+}
+.orders-table-row-column{
+    margin-left: 0;
+
+}
+
+/* ----------- Tablets ----------- */
+@media (max-width: 768px) {
+  .orders-table-row {
+    grid-template-columns: 1fr 2fr 1fr;
+    font-size: 0.75rem;
+    padding: 2vw;
+  }
+
+  .orders-table-row-img {
+    width: 5vw;
+    height: 5vw;
+  }
+
+  .orders-table-row-select {
+    width: 50%;
+    height: auto;
+    font-size: 0.75rem;
+    padding: 1vw;
+  }
+}
+
+/* ----------- Phones ----------- */
+@media (max-width: 480px) {
+  .orders-table-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 4vw;
+    gap: 2vw;
+  }
+
+  .orders-table-row-img {
+    width: 12vw;
+    height: 12vw;
+  }
+
+  .orders-table-row-container {
+    width: 100%;
+  }
+
+  .orders-table-row-select {
+    width: 50%;
+    font-size: 0.7rem;
+  }
+}

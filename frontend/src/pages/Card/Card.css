@@ -1,0 +1,94 @@
+.card{
+    padding-bottom: 3vh;
+}
+.card-list-header{
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 1fr ;
+    list-style: none;
+    align-items: center;
+    color: #808080;
+    padding: 0.8vw 0;
+}
+.card-list-item-img{
+    width: 4.5vw;
+    width: 4.5vw;
+}
+.card-list-item-info-quantity{
+    margin-left: 1vw;
+}
+.card-list-item-info-remove{
+    margin-left: 2vw;
+    cursor: pointer;
+}
+.card-bottom{
+    display: flex;
+    justify-content: space-between;
+    padding: 5vw 0 ;
+    width: 100%;
+}
+.card-totals{
+    width: auto;
+}
+.card-bottom-title{
+    font-size: 1.3rem;
+    font-weight: 800;
+    padding-bottom: 1.3vw;
+}
+
+.card-totals-line{
+    display: flex;
+    justify-content: space-between;
+    gap:23vw;
+    padding: 0.5vw 0;
+    border-bottom: 1px solid ;
+}
+.total{
+    border: none;
+    padding-bottom: 1.8vw;
+}
+.card-bottom-text{
+    width: auto;
+}
+.proceed-btn{
+    width: auto;
+    padding: 1vw 2.5vw;
+    text-align: center;
+    background-color: tomato;
+    color: white;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+}
+.promo-code-container{
+    width:auto;         
+}
+.promo-code-text{
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+.promo-code{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5vw 0;
+}
+.promo-code-input{
+    width: 28vw;
+    padding: 0.5vw 0.4vw;
+    height: 3vw;
+    border: 1px solid #111;
+}
+.promo-code-submit-btn{
+    width: 10vw;
+    padding: 0.2vw 2vw;
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-weight: 600;
+    font-size: 0.8rem;
+    height: 3vw;
+    cursor: pointer;
+    border: none;
+}

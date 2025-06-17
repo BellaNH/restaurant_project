@@ -1,0 +1,37 @@
+.category-list-row{
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    align-items: center;
+    border: 1px solid #ddd;
+    position: relative;
+    padding: 1vw;
+}
+
+.category-act-header{
+    margin-left: 60%;
+    width: fit-content; 
+}
+.category-act-btn-container{
+    display: flex;
+    justify-content: right;
+    gap:1vw;
+    width: 100%;
+  
+}
+.category-act-btn {
+  padding:0.7vw 1.5vw;
+  font-size: clamp(0.6rem, 1.5vw, 0.6rem);
+  font-weight: 600;
+  width: 28%;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.food-category-img{
+    margin-left: 10%;
+    height: 40vh;
+    width: 78%;
+}
