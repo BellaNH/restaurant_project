@@ -1,1 +1,3 @@
-/admin
+.env
+admin/
+node_modules/
