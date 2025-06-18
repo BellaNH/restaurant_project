@@ -15,7 +15,7 @@ const app = express()
 const port = process.env.PORT || 4000
 
 const allowedOrigins = [
-  env.process.FRONTEND_URL,
+  process.env.FRONTEND_URL,
   "https://mern-auth-client-seven.vercel.app",
 ];
 
