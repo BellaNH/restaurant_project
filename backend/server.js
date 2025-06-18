@@ -14,14 +14,14 @@ import authRouter from "./routes/authRouter.js";
 const app = express()
 const port = process.env.PORT || 4000
 
-const allowedOrigins = [
-  process.env.FRONTEND_URL,
-  "https://mern-auth-client-seven.vercel.app",
-];
+const allowedOrigins = {
+  origin:process.env.FRONTEND_URL,
+  credentials: true,
+}
 
 app.use(express.json())
 app.use(cookieParser());
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+app.use(cors(corsOptions));
 
 //db connexion 
 connectDB();
