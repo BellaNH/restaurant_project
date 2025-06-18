@@ -21,7 +21,7 @@ const allowedOrigins = {
 
 app.use(express.json())
 app.use(cookieParser());
-app.use(cors(corsOptions));
+app.use(cors(allowedOrigins));
 
 //db connexion 
 connectDB();
