@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState ,useEffect} from 'react'
-import "./Categlist.css"
+import "./CategList.css"
 import {assets} from "../../assets/frontend_assets/assets"
 import axios from 'axios';
 import {toast} from "react-toastify"
