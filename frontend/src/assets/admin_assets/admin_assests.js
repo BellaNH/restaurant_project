@@ -38,4 +38,4 @@ export const menu_list = [
     {
         menu_name: "Noodles",
     }]
-export const url = 'http://localhost:4000'
+export const url = 'https://restaurant-project-ek2l.onrender.com'

@@ -28,7 +28,7 @@ const ExploreFood = ({selectedCategory,setSelectedCategory})=> {
     const formData = new FormData();
     formData.append("name",data.name);
     formData.append("image",image);
-    const response = await axios.post(`http://localhost:4000/api/category/addCategory`,formData,
+    const response = await axios.post(`https://restaurant-project-ek2l.onrender.com/api/category/addCategory`,formData,
       {headers:{
         Authorization:`Bearer ${localStorage.getItem("token")}`
       }}
@@ -76,7 +76,7 @@ const ExploreFood = ({selectedCategory,setSelectedCategory})=> {
             setSelectedCategory((prev) => (prev === section.name ? "All" : section.name))
           }
           className={selectedCategory === section.name ? "section-img active" : "section-img"}
-          src={`http://localhost:4000/images/${section.image}`}
+          src={`https://restaurant-project-ek2l.onrender.com/images/${section.image}`}
           alt="category"
         />
         <p className="section-name">{section.name}</p>
