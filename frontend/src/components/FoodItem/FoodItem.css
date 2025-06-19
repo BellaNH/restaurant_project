@@ -1,7 +1,6 @@
 .item-container {
     width: 100%;
-    min-height: 250px;
-    height: 250px;
+    height: fit-content;
     border-radius: 8px;
     transition: 0.1s;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
