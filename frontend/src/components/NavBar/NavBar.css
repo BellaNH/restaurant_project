@@ -82,6 +82,7 @@ Link{
   font-weight: 600;          
   line-height: 1;
   display: flex;
+  width: 50px;
   align-items: center;
   justify-content: center;
   align-self: center;
