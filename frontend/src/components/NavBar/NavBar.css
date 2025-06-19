@@ -77,15 +77,15 @@ Link{
   border: none;
   border-radius: 15px;
   cursor: pointer;
-  padding: 10px 25px;     
+  padding: 10px 25px;      /* reduced vertical padding */
   font-size: 0.6rem;
-  font-weight: 600;           
+  font-weight: 600;             /* set fixed height to match profile pic */
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  align-self: center;
-      
+  width: auto;
+  align-self: center;         /* ensures it's vertically centered */
 }
 
   .signup-btn:hover{
