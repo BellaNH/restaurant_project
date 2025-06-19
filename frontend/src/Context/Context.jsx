@@ -100,8 +100,7 @@ const AppProvider = ({ children }) => {
     }
   }
   useEffect(()=>{
-    const loadData = async ()=>{ 
-      await fetchList() 
+    const loadData = async ()=>{  
       if(localStorage.getItem("token")){
        
         setToken(localStorage.getItem("token"))
@@ -110,6 +109,7 @@ const AppProvider = ({ children }) => {
     }  
     console.log(cardItems)
     console.log(`${url}/cart/get`)
+    fetchList()
      userType()
     loadData()
     fetchCategories()
