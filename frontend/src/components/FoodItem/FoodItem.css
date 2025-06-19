@@ -1,6 +1,6 @@
 .item-container {
     width: 100%;
-    height: clamp(300px, 40vh, 250px); /* NEW */
+    height: clamp(350px, 40vh, 250px); /* NEW */
     border-radius: 8px;
     transition: 0.1s;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
