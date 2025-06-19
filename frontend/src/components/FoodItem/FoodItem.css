@@ -1,7 +1,8 @@
 .item-container {
     width: 100%;
     min-height: 500px;
-    max-height: 550px;
+    height: 200px;
+    max-height: 530px;
     border-radius: 8px;
     transition: 0.1s;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
