@@ -1,5 +1,6 @@
 .item-container {
     width: 100%;
+    min-height: 250px;
     height: 250px;
     border-radius: 8px;
     transition: 0.1s;
