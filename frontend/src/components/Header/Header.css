@@ -1,6 +1,6 @@
 .header{
     height: 34vw;
-    background: url("./pizza_three.jpg") no-repeat ;
+    background: url("/pizza_three.jpg") no-repeat ;
     background-size: 100% auto; 
     background-position: center;
     border-radius: 8px;
