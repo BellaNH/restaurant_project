@@ -67,8 +67,9 @@ const ExploreFood = ({selectedCategory,setSelectedCategory})=> {
     Explore our menuExplore our menuExplore our menuExplore our menuExplore our menuExplore our menuExplore our menuExplore our menuExplore our menuExplore our menu
   </p>
 
-  <div className="menu-list">
-    {categories && categories.map((section, index) => (
+<div className="menu-list">
+  {categories.length > 0 ? (
+    categories.map((section, index) => (
       <div className="section" key={index}>
         {console.log(section.image)}
         <img
@@ -81,8 +82,12 @@ const ExploreFood = ({selectedCategory,setSelectedCategory})=> {
         />
         <p className="section-name">{section.name}</p>
       </div>
-    ))}
-  </div>
+    ))
+  ) : (
+    <p>Loading categories...</p>
+  )}
+</div>
+
 
 
 
