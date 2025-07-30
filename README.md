@@ -2,7 +2,8 @@
 
 ## Fonctionnalités principales
 
-- **Interface client** :  
+- **Interface client** :
+  - Design Responsive
   - Visualisation des plats disponibles (avec images, catégories…)
   - Système de commande en ligne
   - Filtrage par catégorie
@@ -10,7 +11,8 @@
   - Vérification d'email par OTP
   - Payement online - Stripe gateaway
 
-- **Interface administrateur (RBAC)** :  
+- **Interface administrateur (RBAC)** :
+  - Design Responsive  
   - Tableau de bord sécurisé
   - Gestion de plats
   - Gestion des catégories
