@@ -1,44 +1,48 @@
-# Online ordering system with role based access control (client/admin)
+# Online Ordering System with Role-Based Access Control (Client/Admin)
 
-## Fonctionnalités principales
+In the restaurant industry, managing online orders, tracking inventory, and ensuring secure access for staff and customers can quickly become complex. Many small and medium-sized restaurants struggle to provide a smooth user experience for customers while maintaining efficient back-office management.
 
-- **Interface client** :
-  - Design Responsive
-  - Visualisation des plats disponibles (avec images, catégories…)
-  - Système de commande en ligne
-  - Filtrage par catégorie
-  - Inscription, connexion sécurisée, récupération de mot de passe
-  - Vérification d'email par OTP
-  - Payement online - Stripe gateaway
+This project solves that challenge by providing a **complete online restaurant management system** with a **modern client interface** for browsing and ordering meals, and a **secure admin dashboard** for managing products, categories, and orders. With **role-based access control**, each user gets the right tools for their role — improving security, efficiency, and customer satisfaction.
 
-- **Interface administrateur (RBAC)** :
-  - Design Responsive  
-  - Tableau de bord sécurisé
-  - Gestion de plats
-  - Gestion des catégories
-  - Visualisation et gestion des commandes
-  - Téléchargement d’images via Multer
-  - Contrôle d’accès basé sur les rôles (admin/client)
+## Main Features
 
-## Stack technique
-- **Frontend** : React.js, CSS, Vite  
-- **Backend** : Node.js, Express  
-- **Base de données** : MongoDB (hébergée sur MongoDB Atlas)  
-- **Authentification** :
+- **Client Interface**:
+  - Responsive design
+  - Browse available dishes (with images, categories, etc.)
+  - Online ordering system
+  - Filter by category
+  - Secure registration, login, and password recovery
+  - Email verification via OTP
+  - Online payment through Stripe gateway
+
+- **Admin Interface (RBAC)**:
+  - Responsive design
+  - Secure dashboard
+  - Manage dishes
+  - Manage categories
+  - View and manage orders
+  - Image upload via Multer
+  - Role-based access control (admin/client)
+
+## Tech Stack
+
+- **Frontend**: React.js, CSS, Vite
+- **Backend**: Node.js, Express
+- **Database**: MongoDB (hosted on MongoDB Atlas)
+- **Authentication**:
   - JSON Web Token (JWT)
-  - OTP pour vérification email (inscription, mot de passe oublié)
-- **Upload d’images** : Multer
+  - OTP for email verification (registration, password reset)
+- **Image Upload**: Multer
 
-## Déploiement
--  Frontend (Netlify) : https://restaurantw.netlify.app/
--  Backend (Render) : https://restaurant-project-ek2l.onrender.com
+## Deployment
 
+- **Frontend (Netlify)**: [https://restaurantw.netlify.app/](https://restaurantw.netlify.app/)
+- **Backend (Render)**: [https://restaurant-project-ek2l.onrender.com](https://restaurant-project-ek2l.onrender.com)
 
-## Sécurité et rôles
+## Security & Roles
 
-- Authentification sécurisée avec JWT
-- Vérification d’e-mail via OTP
-- Gestion des rôles (admin / client)
-- Protection des routes sensibles
-
+- Secure authentication with JWT
+- Email verification via OTP
+- Role management (admin / client)
+- Protection of sensitive routes
 
