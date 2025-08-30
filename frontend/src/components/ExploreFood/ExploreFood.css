@@ -227,18 +227,16 @@
     height: 5vw;
   }
 
-.menu-title {
-  font-size: 1.3rem;
-  width: 100%;
-  font-family: "Georgia", "Times New Roman", serif; /* elegant, restaurant feel */
-}
+  .menu-title {
+    font-size: 1.4rem;
+    width: 100%;
+    
+  }
 
-.menu-text {
-  font-size: 2.5vw;
-  margin-bottom: 2vh;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* clean & modern */
-}
-
+  .menu-text {
+    font-size: 2.5vw;
+    margin-bottom: 2vh;
+  }
 
   .section {
     width: 20vw;
