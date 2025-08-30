@@ -140,8 +140,12 @@ Link{
   background-color: #e0e0e0;
 }
 
-
-
+.nav-sidebar{ 
+  display: none;
+}
+.nav-sidebar-menu-icon{
+  display: none;
+}
 @media (max-width: 950px) { 
   .nav-links{ 
     display: none; 
@@ -172,11 +176,14 @@ Link{
     box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1); 
     border-top-left-radius: 12px; 
     border-bottom-left-radius: 12px; 
-    z-index: 999; } 
+    z-index: 999; 
+  } 
     .nav-sidebar.show { 
       transform: translateX(0); 
     } 
-    .nav-sidebar.hide { transform: translateX(100%); } 
+    .nav-sidebar.hide { 
+      transform: translateX(100%); 
+    } 
     .nav-sidebar a { text-decoration: none; font-size: 1rem; font-weight: 500; color: #333; padding: 12px 10px; border-left: 3px solid transparent; transition: all 0.3s ease; } 
     .nav-sidebar a:hover { background-color: rgba(245, 127, 23, 0.08); /* soft orange tint */ border-left: 3px solid #F57F17; color: #F57F17; cursor: pointer; } 
     .sidebar-close-icon { 
