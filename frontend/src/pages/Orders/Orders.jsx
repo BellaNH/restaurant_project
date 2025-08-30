@@ -6,7 +6,7 @@ import { assets } from "../../assets/frontend_assets/assets"
 function Orders() {
   const [data,setData] = useState([])
   const fetchallorders = async ()=>{
-    const response  = await axios.post(`https://restaurant-project-ek2l.onrender.com/api/order/allorders`,{},
+    const response  = await axios.post(`http://localhost:4000/api/order/allorders`,{},
       {
         headers:{
           Authorization :`Bearer ${localStorage.getItem("token")}`
@@ -19,7 +19,7 @@ function Orders() {
   }
   const onChangeHandler = async (e,orderId)=>{
     const status = e.target.value
-    const response = await axios.post(`https://restaurant-project-ek2l.onrender.com/api/order/status`,{orderId,status:status},
+    const response = await axios.post(`http://localhost:4000/api/order/status`,{orderId,status:status},
       {headers:{
         Authorization:`Bearer ${localStorage.getItem("token")}`
       }})

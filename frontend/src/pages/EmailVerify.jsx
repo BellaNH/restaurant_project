@@ -41,7 +41,7 @@ const EmailVerify = () => {
       const otpArray = inputRefs.current.map((e) => e.value);
       const otp = otpArray.join("");
 
-      const { data } = await axios.post("https://restaurant-project-ek2l.onrender.com/api/auth/verify-account",
+      const { data } = await axios.post("http://localhost:4000/api/auth/verify-account",
         { otp ,
           userId:localStorage.getItem("registeredUserId")
         }
@@ -67,7 +67,7 @@ const EmailVerify = () => {
   
   const resendOTP = async ()=>{
     try{
-      const response = await axios.post("https://restaurant-project-ek2l.onrender.com/api/auth/send-verify-otp",{
+      const response = await axios.post("http://localhost:4000/api/auth/send-verify-otp",{
         userId:localStorage.getItem("registeredUserId")
       })
       console.log(response)

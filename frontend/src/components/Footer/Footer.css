@@ -85,6 +85,17 @@
     padding: 1.5vw;
     font-weight: 500;
 }
+@media (max-width:950px){
+    .center{
+        margin-left: 30px;
+        margin-bottom: 20px;
+    }
+    .right{
+        position: absolute;
+        bottom:40px;
+        left:50%;
+    }
+}
 @media (max-width:850px){
     .left-footer-text{
         font-size: 1.2vw;

@@ -25,12 +25,12 @@ Link{
   .nav-links{
     list-style: none;
     display: flex;
-    gap:2vw;
+    gap:4vw;
     color: hsl(226, 27%, 39%);
     font-size: 1.5vw;
     cursor: pointer;
     width: auto;
-    margin-left: 15%;
+    margin-left: 28%;
   }
   .nav-links a{
     width: auto;
@@ -43,21 +43,23 @@ Link{
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2vw; 
+  gap:30px; 
   width: fit-content;
-  margin-right: 5%;
+  margin-right: 9%;
   flex-wrap: nowrap;
 
 }
 
   .basket-icon-container{
-    width: fit-content;
+    width: 60px;
     position: relative;
+    height: 40px;
     }
   .basket-icon{
     cursor: pointer;
-    width: 38px;
-    height: 20px;
+    width: 40px;
+    max-width: 50px;
+    height: 40px;
   }
   .dot{
     background-color: tomato;
@@ -66,7 +68,7 @@ Link{
     border-radius: 50%;
     position: absolute;
     top:0;
-    left:2.5vw;
+    left:45px;
 
   }
   .signup-btn {
@@ -75,16 +77,16 @@ Link{
   background-color: tomato;
   color: white;
   border: none;
-  border-radius: 15px;
-  cursor: pointer;
-  padding: 10px 25px;      /* reduced vertical padding */
-  font-size: 0.6rem;
-  font-weight: 600;             /* set fixed height to match profile pic */
+  border-radius: 25px;
+  cursor: pointer;     
+  font-size: 0.85rem;
+  font-weight: 600;         
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: auto;
+  width: 130px;
+  height: 40px;
   align-self: center;         /* ensures it's vertically centered */
 }
 
@@ -172,13 +174,6 @@ Link{
 }
 
 @media (max-width: 550px) {
-  .nav-links {
-    gap: 1vw;
-    font-size: 2.2vw;
-    flex-shrink: 1;
-    min-width: 0;
-    margin-left: 8%;
-  }
 
   .signup-btn {
     padding: 9px 14px;  
@@ -218,4 +213,87 @@ Link{
   }
 }
 
- 
+.nav-sidebar{
+  display: none;
+}
+.nav-sidebar-menu-icon{
+  display: none;
+}
+
+
+@media (max-width: 950px) {
+  .nav-links{
+    display: none;
+  }
+  .navbar{
+    height: 25px;
+  }
+  .right-navbar{
+    display: none;
+  }
+  .signup-btn{
+    display: none;
+  }
+  .nav-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 50%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: 20px;
+  padding-top: 40px;
+  transition: transform 0.5s ease-in-out;
+  transform: translateX(100%);
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1); /* soft shadow */
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  z-index: 999;
+}
+
+.nav-sidebar.show {
+  transform: translateX(0);
+}
+
+.nav-sidebar.hide {
+  transform: translateX(100%);
+}
+
+.nav-sidebar a {
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  padding: 12px 10px;
+  border-left: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.nav-sidebar a:hover {
+  background-color: rgba(245, 127, 23, 0.08); /* soft orange tint */
+  border-left: 3px solid #F57F17;
+  color: #F57F17;
+  cursor: pointer;
+}
+
+.sidebar-close-icon {
+  position: absolute;
+  top: 5px;
+  left:35%;
+  color: #F57F17;
+  font-size: 28px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.nav-sidebar-menu-icon{ position: absolute; right:10%; display: block; color: #F57F17; width: 15px; margin-top:4px; }
+.sidebar-close-icon:hover {
+  transform: rotate(90deg); /* playful animation */
+}
+
+
+}

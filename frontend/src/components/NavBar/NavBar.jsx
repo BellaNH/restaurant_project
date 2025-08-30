@@ -1,13 +1,15 @@
 import "./NavBar.css"
 import { assets } from "../../assets/frontend_assets/assets"
-import { useState } from "react"
+import { useState , useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useGlobalContext } from "../../Context/Context"
-  
+import { RiMenuLine } from "react-icons/ri";
+
 const NavBar = ({showLogin,setShowLogin})=> {
     const [menu,setMenu] = useState("")  
     const {token,setToken} = useGlobalContext()
     const [showDropDownMenu,setShowDropDownMenu] = useState(false)
+    const [openSideBar,setOpenSideBar] = useState(false)
     const navigate = useNavigate()
     const logout = ()=>{
         localStorage.removeItem("token")
@@ -15,16 +17,19 @@ const NavBar = ({showLogin,setShowLogin})=> {
         setToken("")
         navigate("/")
     }
+    useEffect(()=>{
+        console.log(openSideBar)
+    },[openSideBar])
+
     return(    
     <div className="navbar">
     <Link to="/" className="logo">
     <img src={assets.restaurant_logo} alt="" className="navbar-logo-img"/>
     </Link>
     <div className="nav-links">
-        <Link to="/" onClick={()=>{setMenu("home")}} className={menu==="home"?"active-link":""}>home</Link>
-        <a href="#menu" onClick={()=>{setMenu("menu")}} className={menu==="menu"?"active-link":""}>menu</a>
-        <a href="#download-container" onClick={()=>{setMenu("mobile app")}} className={menu==="mobile app"?"active-link":""}>location</a>
-        <a href="#footer" onClick={()=>{setMenu("contact us")}} className={menu==="contact us"?"active-link":""}>contact us</a>
+        <Link to="/" onClick={()=>{setMenu("home")}} className={menu==="home"?"active-link":""}>Home</Link>
+        <a href="#menu" onClick={()=>{setMenu("menu")}} className={menu==="menu"?"active-link":""}>Menu</a>
+        <a href="#footer" onClick={()=>{setMenu("contact us")}} className={menu==="contact us"?"active-link":""}>Contact</a>
     </div>  
     {localStorage.getItem("token")
     ?<div className="right-navbar">
@@ -55,7 +60,27 @@ const NavBar = ({showLogin,setShowLogin})=> {
     </div> :
     <button onClick={()=>{setShowLogin(true)}} className="signup-btn">sign up</button>
     } 
-         
+    <RiMenuLine 
+        onClick={() => setOpenSideBar(!openSideBar)} 
+        className="nav-sidebar-menu-icon"
+      /> 
+    
+    <div
+    className={`nav-sidebar sidebar-overlay ${openSideBar ? "show" : "hide"}`}>
+       <button 
+         onClick={() => setOpenSideBar(false)} 
+         className="sidebar-close-icon"
+       >
+         ✕
+       </button>
+       <a href="#" onClick={() => setOpenSideBar(false)}>Home</a>
+       <a href="#menu" onClick={() => setOpenSideBar(false)}>Menu</a>
+       <a href="#service" onClick={() => setOpenSideBar(false)}>Location</a>
+       <a href="#footer" onClick={() => setOpenSideBar(false)}>Contact</a>
+       <button onClick={()=>{setShowLogin(true)}} className="signup-btn">sign up</button>
+     </div>  
+     
+       
     </div>)
 }
 export default NavBar;

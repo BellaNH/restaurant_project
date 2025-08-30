@@ -21,7 +21,7 @@ function CategList() {
  
 
   const removeItem = async (itemId)=>{
-    const response = await axios.post(`https://restaurant-project-ek2l.onrender.com/api/category/removeCategory`,{id:itemId},
+    const response = await axios.post(`http://localhost:4000/api/category/removeCategory`,{id:itemId},
         {headers:{
             Authorization:`Bearer ${localStorage.getItem("token")}`
         }}
@@ -38,7 +38,7 @@ function CategList() {
 
     console.log(foodId)
     try{
-      const response = await axios.get(`https://restaurant-project-ek2l.onrender.com/api/category/fetchEditedCateg?id=${foodId}`,
+      const response = await axios.get(`http://localhost:4000/api/category/fetchEditedCateg?id=${foodId}`,
         {
             headers:{
                 Authorization:`Bearer ${localStorage.getItem("token")}`
@@ -74,7 +74,7 @@ const handleSubmit = async (e) => {
       formData.append("imageFilename", data.image);
     }
 
-    const response = await axios.post("https://restaurant-project-ek2l.onrender.com/api/category/editCategory", formData,
+    const response = await axios.post("http://localhost:4000/api/category/editCategory", formData,
         {
             headers:{
                 Authorization:`Bearer ${localStorage.getItem("token")}`
@@ -120,7 +120,7 @@ const handleSubmit = async (e) => {
         {categories && categories.map((item,index)=>{
           return (
           <div className="item-list-element category-list-row" key={index}>
-            <img className='item-list-element-img' src={`https://restaurant-project-ek2l.onrender.com/images/${item.image}`}/>
+            <img className='item-list-element-img' src={`http://localhost:4000/images/${item.image}`}/>
             <p>{item.name}</p>
               <div className='category-act-btn-container'>
               <button type='button' className='category-act-btn act-btn-delete' onClick={()=>{removeItem(item._id)}}>Remove</button>
@@ -134,7 +134,7 @@ const handleSubmit = async (e) => {
       <img
          src={data.image instanceof File 
         ? URL.createObjectURL(data.image)
-        : `https://restaurant-project-ek2l.onrender.com/images/${data.image}`}
+        : `http://localhost:4000/images/${data.image}`}
         className="food-item-img"
         alt="Food"
       />

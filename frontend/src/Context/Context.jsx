@@ -7,7 +7,7 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
 
   const [cardItems,setCardItems] = useState({})
-  const url = "https://restaurant-project-ek2l.onrender.com"
+  const url = "http://localhost:4000"
   const [list,setList] = useState([])
   const [token,setToken] = useState("")
   const [categories,setCategories] = useState([])
@@ -23,7 +23,7 @@ const AppProvider = ({ children }) => {
 
   const fetchCategories = async ()=>{
     try{
-      const response = await axios.get("https://restaurant-project-ek2l.onrender.com/api/category/list")
+      const response = await axios.get("http://localhost:4000/api/category/list")
       console.log(response)
       if(response.data.success){
         setCategories(response.data.data)
@@ -71,7 +71,7 @@ const AppProvider = ({ children }) => {
   }
   
   const fetchList = async ()=>{
-    const response = await axios.get(`https://restaurant-project-ek2l.onrender.com/api/food/list`)
+    const response = await axios.get(`${url}/api/food/list`)
     console.log(response.data)
     if(response.data.success){
       setList(response.data.data)
@@ -87,7 +87,7 @@ const AppProvider = ({ children }) => {
   }
   const userType = async ()=>{
     try{
-      const data = await axios.post(`https://restaurant-project-ek2l.onrender.com/api/user/role`,{},
+      const data = await axios.post(`http://localhost:4000/api/user/role`,{},
         {headers:{
           Authorization:`Bearer ${localStorage.getItem("token")}`
         }}

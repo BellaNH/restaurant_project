@@ -30,7 +30,7 @@ function AddItem({url}) {
     formData.append("category",data.category);
     formData.append("price",Number(data.price));
     formData.append("image",image);
-    const response = await axios.post(`https://restaurant-project-ek2l.onrender.com/api/food/add`,formData);
+    const response = await axios.post(`http://localhost:4000/api/food/add`,formData);
     if(response.data.success){
       setData({
         name:"",

@@ -8,8 +8,9 @@
 }
 .foodlist-title{
     font-weight: 500;
-    font-size: 2.5vw;
-    color: black;
+    font-size: 1.5rem;
+    color: rgb(59, 11, 11);
+    margin-bottom: 10px;
 }
 .foodlist{
     display: grid;

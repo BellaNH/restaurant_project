@@ -26,7 +26,7 @@ function ItemsList() {
   console.log(list)
 
   const removeItem = async (itemId)=>{
-    const response = await axios.post(`https://restaurant-project-ek2l.onrender.com/api/food/remove`,{id:itemId})
+    const response = await axios.post(`http://localhost:4000/api/food/remove`,{id:itemId})
     await fetchList()
     if(response.data.success){
       toast.success(response.data.message)
@@ -38,7 +38,7 @@ function ItemsList() {
 
     console.log(foodId)
     try{
-      const response = await axios.get(`https://restaurant-project-ek2l.onrender.com/api/food/fetchEditedFood?id=${foodId}`)
+      const response = await axios.get(`http://localhost:4000/api/food/fetchEditedFood?id=${foodId}`)
       console.log(response)
       setData(
         {
@@ -74,7 +74,7 @@ const handleSubmit = async (e) => {
       formData.append("imageFilename", data.image);
     }
 
-    const response = await axios.post("https://restaurant-project-ek2l.onrender.com/api/food/edit", formData);
+    const response = await axios.post("http://localhost:4000/api/food/edit", formData);
     console.log(response.data);
     setOpenEditForm(false);
     fetchList()
@@ -116,7 +116,7 @@ const handleSubmit = async (e) => {
         {list.map((item,index)=>{
           return (
           <div className="item-list-element item-list-row" key={index}>
-            <img className='item-list-element-img' src={`https://restaurant-project-ek2l.onrender.com/images/${item.image}`}/>
+            <img className='item-list-element-img' src={`http://localhost:4000/images/${item.image}`}/>
             <p>{item.name}</p>
             <p>{item.category}</p>
             <p>${item.price}</p>
@@ -132,7 +132,7 @@ const handleSubmit = async (e) => {
       <img
          src={data.image instanceof File 
         ? URL.createObjectURL(data.image)
-        : `https://restaurant-project-ek2l.onrender.com/images/${data.image}`}
+        : `http://localhost:4000/images/${data.image}`}
         className="food-item-img"
         alt="Food"
       />

@@ -28,7 +28,7 @@ const ExploreFood = ({selectedCategory,setSelectedCategory})=> {
     const formData = new FormData();
     formData.append("name",data.name);
     formData.append("image",image);
-    const response = await axios.post(`https://restaurant-project-ek2l.onrender.com/api/category/addCategory`,formData,
+    const response = await axios.post(`http://localhost:4000/api/category/addCategory`,formData,
       {headers:{
         Authorization:`Bearer ${localStorage.getItem("token")}`
       }}
@@ -64,8 +64,11 @@ const ExploreFood = ({selectedCategory,setSelectedCategory})=> {
   </div>
 
   <p className="menu-text">
-    Explore our menuExplore our menuExplore our menuExplore our menuExplore our menuExplore our menuExplore our menuExplore our menuExplore our menuExplore our menu
-  </p>
+  Explore our menu and discover a variety of freshly prepared dishes made with
+  quality ingredients. From hearty meals to light bites and sweet treats, we’ve
+  got something for everyone to enjoy.
+</p>
+
 
 <div className="menu-list">
   {categories.length > 0 ? (
@@ -77,7 +80,7 @@ const ExploreFood = ({selectedCategory,setSelectedCategory})=> {
             setSelectedCategory((prev) => (prev === section.name ? "All" : section.name))
           }
           className={selectedCategory === section.name ? "section-img active" : "section-img"}
-          src={`https://restaurant-project-ek2l.onrender.com/images/${section.image}`}
+          src={`http://localhost:4000/images/${section.image}`}
           alt="category"
         />
         <p className="section-name">{section.name}</p>
