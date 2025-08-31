@@ -58,7 +58,7 @@
 }
 @media (max-width: 950px) {
   .header {
-      height: 65vh; /* taller image */
+      height: 65vh;
       padding-top: 20%;
   }
   .header-content {

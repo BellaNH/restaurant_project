@@ -28,9 +28,9 @@ const NavBar = ({showLogin,setShowLogin})=> {
     <img src={assets.restaurant_logo} alt="" className="navbar-logo-img"/>
     </Link>
     <div className="nav-links">
-        <Link to="/" onClick={()=>{setMenu("home")}} className={menu==="home"?"active-link":""}>Home</Link>
-        <a href="#menu" onClick={()=>{setMenu("menu")}} className={menu==="menu"?"active-link":""}>Menu</a>
-        <a href="#footer" onClick={()=>{setMenu("contact us")}} className={menu==="contact us"?"active-link":""}>Contact</a>
+        <Link to="/"  className={menu==="home"?"active-link":""}>Home</Link>
+        <a href="#menu"  className={menu==="menu"?"active-link":""}>Menu</a>
+        <a href="#footer" className={menu==="contact us"?"active-link":""}>Contact</a>
     </div>  
     {localStorage.getItem("token")
     ?<div className="right-navbar">

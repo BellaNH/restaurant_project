@@ -2,7 +2,6 @@
   height: auto;
   display: flex;
   flex-direction: column;
-  gap: 1.5vw;
   padding: 1.5vw 0;
 }
 
@@ -17,12 +16,12 @@
 
 
 .menu-title {
-  font-size: 2.2vw;
-  font-weight: 600;
-  color:black;
-  flex-shrink: 0;
-  width: fit-content;
+  font-size: clamp(1.8rem, 2.5vw, 2.8rem); 
+  font-weight: 700;
+  color: #222;
+  letter-spacing: 0.5px;
 }
+
 
 
 .add-category-text {
@@ -58,11 +57,12 @@
 }
 
 .menu-text {
-  font-size: 1vw;
-  color: #ccc;
-  line-height: 1.5;
+  font-size: clamp(0.95rem, 1vw, 1.2rem);
+  color: #555; 
+  line-height: 1.6;
   max-width: 70%;
 }
+
 
 .menu-list {
   display: flex;
@@ -73,6 +73,7 @@
   gap: 2vw;                  
   padding-bottom: 1vw;
   scroll-behavior: smooth;     
+  margin-top: 20px;
 }
 
 .menu-list::-webkit-scrollbar {
@@ -201,13 +202,12 @@
   background-color: 	#F57F17;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 950px) {
   .menu-header {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
     height: auto;
-    gap: 2vw;
     padding: 2vw 0;
   }
   .menu-title {
@@ -235,7 +235,6 @@
 
   .menu-text {
     font-size: 2.5vw;
-    margin-bottom: 2vh;
   }
 
   .section {
@@ -282,6 +281,12 @@
     padding: 10px;
     font-size: 0.8rem;
   }
+  .menu-list{
+    margin-bottom: 2vh;
+  }
+  .menu-list::-webkit-scrollbar {
+  display: none; 
+}
 }
 
 
