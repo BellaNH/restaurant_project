@@ -87,13 +87,15 @@
 }
 @media (max-width:950px){
     .center{
-        margin-left: 30px;
-        margin-bottom: 20px;
+        position: absolute;
+        top:10%;
+        left:55%;
+        width: auto;
     }
     .right{
         position: absolute;
-        bottom:30px;
-        left:50%;
+        top:10%;
+        left:70%;
         width: auto;
     }
 }

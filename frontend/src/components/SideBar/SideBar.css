@@ -68,7 +68,10 @@
     font-weight: 500;
     color: inherit;
 }
-/*@media (max-width: 768px) {
+@media (max-width: 950px) {
+  .sidebar {
+    width: 30%;
+  }
   .option-text {
     font-size: 2.5vw;
   }
@@ -83,17 +86,4 @@
   }
 }
 
-@media (max-width: 480px) {
-  .option-text {
-    font-size: 3.5vw;
-  }
 
-  .option-img {
-    width: 4vw;
-    height: 4vw;
-  }
-
-  .option {
-    padding: 2vw 3vw;
-  }
-}*/

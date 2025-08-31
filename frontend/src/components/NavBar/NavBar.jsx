@@ -19,7 +19,8 @@ const NavBar = ({showLogin,setShowLogin})=> {
     }
     useEffect(()=>{
         console.log(openSideBar)
-    },[openSideBar])
+        console.log(showLogin)
+    },[openSideBar,showLogin])
 
     return(    
     <div className="navbar">
@@ -64,8 +65,8 @@ const NavBar = ({showLogin,setShowLogin})=> {
         onClick={() => setOpenSideBar(!openSideBar)} 
         className="nav-sidebar-menu-icon"
       /> 
-    
-    <div
+   
+     <div
     className={`nav-sidebar sidebar-overlay ${openSideBar ? "show" : "hide"}`}>
        <button 
          onClick={() => setOpenSideBar(false)} 
@@ -75,10 +76,20 @@ const NavBar = ({showLogin,setShowLogin})=> {
        </button>
        <a href="#" onClick={() => setOpenSideBar(false)}>Home</a>
        <a href="#menu" onClick={() => setOpenSideBar(false)}>Menu</a>
-       <a href="#service" onClick={() => setOpenSideBar(false)}>Location</a>
        <a href="#footer" onClick={() => setOpenSideBar(false)}>Contact</a>
-       <button onClick={()=>{setShowLogin(true)}} className="signup-btn">sign up</button>
-     </div>  
+       {
+        token && (
+            <Link href="#footer" to="/myorders">My orders</Link>
+
+        )
+       }
+       {token ? 
+       <button onClick={()=>{logout(),setOpenSideBar(false)}} className="sidebar-signup-btn">Log Out</button>
+       :<button onClick={()=>{setShowLogin(true),setOpenSideBar(false)}} className="sidebar-signup-btn">sign up</button>}
+       
+     </div>
+     
+     
      
        
     </div>)

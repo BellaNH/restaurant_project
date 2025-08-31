@@ -17,7 +17,7 @@ function SideBar() {
       }
     };
 
-    updateNavbarHeight(); // run once
+    updateNavbarHeight(); 
 
     window.addEventListener('resize', updateNavbarHeight);
     return () => {

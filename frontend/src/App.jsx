@@ -64,9 +64,10 @@ function App() {
           <Route path="/add" element={<AddItem/>}/>
           }   
         </Routes>
+        <Footer/>
       </div>
       
-      <Footer/>
+      
     </>
   )
 }

@@ -25,12 +25,12 @@ Link{
   .nav-links{
     list-style: none;
     display: flex;
-    gap:2vw;
+    gap:4vw;
     color: hsl(226, 27%, 39%);
     font-size: 1.5vw;
     cursor: pointer;
     width: auto;
-    margin-left: 15%;
+    margin-left: 25%;
   }
   .nav-links a{
     width: auto;
@@ -71,6 +71,7 @@ Link{
     left:45px;
 
   }
+  .sidebar-signup-btn,
   .signup-btn {
   position: absolute;
   right: 10%;
@@ -79,19 +80,20 @@ Link{
   border: none;
   border-radius: 25px;
   cursor: pointer;     
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   font-weight: 600;         
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 150px;
-  height: 50px;
+  width: 120px;
+  height: 40px;
   align-self: center;         /* ensures it's vertically centered */
 }
 
+  .sidebar-signup-btn,
   .signup-btn:hover{
-    background-color: 	#F57F17;;
+    background-color: 	#F57F17;
   }   
   .profile-drop-down-container{
     position: relative;
@@ -156,8 +158,12 @@ Link{
   .right-navbar{ 
     display: none;
   }
-  .signup-btn{ 
-    display: none; 
+  .signup-btn{
+    display: none;
+  }
+  .sidebar-signup-btn{ 
+    top:39%;
+    left:10%;
   } 
   .nav-sidebar{ 
     position: absolute; 
@@ -170,7 +176,7 @@ Link{
     flex-direction: column; 
     gap: 20px; 
     padding-left: 20px; 
-    padding-top: 40px; 
+    padding-top: 50px; 
     transition: transform 0.5s ease-in-out; 
     transform: translateX(100vw); 
     box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1); 
@@ -198,4 +204,5 @@ Link{
       margin-top:4px; } 
     .sidebar-close-icon:hover { 
       transform: rotate(90deg);  
-    } }
+    } 
+  }

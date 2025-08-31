@@ -65,75 +65,79 @@
     font-weight: 700;
     cursor: pointer;
 }
-@media (max-width: 850px) {
+@media (max-width: 950px) {
   .login-form {
-    width: 40%;
-    margin-left: auto;
-    margin-right: auto;
-    gap: 2vw;
-  }
-  .close-icon{
-    width: 2vw;
-    height: 2vw;
-    cursor: pointer;
-}
-
-  .login-title {
-    font-size: 0.95rem;
-  }
-
-  .form-inputs {
-    padding: 0.6vw;
-  }
-  .form-inputs::placeholder {
-    font-size: 0.7rem;
-  }
-
-  .forget-password-text {
-    font-size: 0.75rem;
-  }
-
-  .login-form-btn {
-    padding: 1.2vw;
-    font-size: 0.85rem;
-  }
-
-  .login-signup-text {
-    font-size: 0.7rem;
-  }
-
-}
-
-@media (max-width: 550px) {
-  .login-form {
-    width: 50%;
-    gap: 3vw;
-    margin-top: 10%;
-  }
-
-  .login-title {
-    font-size: 0.9rem;
-  }
-
-  .form-inputs {
-    padding: 1.2vw;
-  }
-
-
-  .forget-password-text {
-    font-size: 0.7rem;
-  }
-
-  .login-form-btn {
-    font-size: 0.8rem;
-  }
-
-  .login-signup-text {
-    font-size: 0.65rem;
+    width: 90%;
+    margin: 40% auto 0 auto;
+    padding: 1.5rem;
+    gap: 1rem;
+    font-family: 'Poppins', 'Inter', 'Roboto', sans-serif;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   }
 
   .close-icon {
-    width: 4vw;
-    height: 4vw;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  .login-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .form-inputs {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+  }
+
+  .form-inputs::placeholder {
+    font-size: 0.85rem;
+    color: #aaa;
+  }
+
+  .forget-password-text {
+    font-size: 0.8rem;
+    color: #F57F17;
+    cursor: pointer;
+    margin-top: -0.5rem;
+  }
+
+  .login-form-btn {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    background: #F57F17;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .login-form-btn:hover {
+    background: #f47608;
+  }
+
+  .login-signup-text {
+    font-size: 0.8rem;
+    color: #555;
+    text-align: center;
+  }
+
+  .login-signup-text span {
+    color: #F57F17;
+    font-weight: 500;
+    cursor: pointer;
   }
 }
+
+
