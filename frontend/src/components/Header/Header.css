@@ -1,34 +1,50 @@
-.header{
+.header {
+    position: relative;
     height: 34vw;
-    background: url("/pizza_three.jpg") no-repeat ;
-    background-size: 100% auto; 
-    background-position: center;
-    border-radius: 8px;
+    background: url("/pizza_three.jpg") no-repeat center;
+    background-size: cover; 
+    border-radius: 12px;
     width: 100%;
     margin-top: 11%;
     padding-top: 8%;
+    overflow: hidden;
 }
-.header-content{
+
+.header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(83, 83, 83, 0.6), rgba(41, 41, 41, 0.2));
+    border-radius: 12px;
+}
+
+.header-content {
+    position: relative;
+    margin-left: 0;
     display: flex;
     flex-direction: column;
-    gap:1.5vw;
+    gap: 1.5vw;
     padding: 0 6vw;
     width: 65%;
-    height: fit;
-    margin-left: 0vw;
+    z-index: 2;
 }
-.header-content h2{
-    color:white;
-    font-size: 4vw;
-    background-color: white/70;
-    backdrop-filter: blur(1px);
+
+.header-content h2 {
+    color: #fff;
+    font-size: 3.5vw;
+    font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.5); /* for extra clarity */
 }
-.header-content p{
-    color:white;
-    font-size: 1vw;
-    background-color: white/70;
-    backdrop-filter: blur(4px);
+
+.header-content p {
+    color: #f0f0f0;
+    font-size: 1.2vw;
+    line-height: 1.6;
+    font-weight: 400;
+    max-width: 80%;
 }
+
 .show-menu-btn{
     width: 10vw;
     background-color: white;
@@ -40,18 +56,22 @@
     color: rgb(188, 188, 200);
     cursor: pointer;
 }
-/*@media (max-width:1024px){
-    .header-content{
-        gap: 1.5vw;
-     }
-    .header-content h2{
-        font-size: 4vw;
-    }
-    .header-content p{
-        font-size: 1.2vw;
-    }
-    .show-menu-btn{
-        width: 12vw;
-        font-size: 1.2vw;
-    }
-}*/
+@media (max-width: 950px) {
+  .header {
+      height: 65vh; /* taller image */
+      padding-top: 20%;
+  }
+  .header-content {
+      width: 90%;
+      padding: 0 5vw;
+      margin-left: auto;
+      margin-top: 20%;
+      gap: 2.5vw;
+  }
+  .header-content h2 {
+      font-size: 6vw;
+  }
+  .header-content p {
+      font-size: 3.5vw;
+  }
+}
