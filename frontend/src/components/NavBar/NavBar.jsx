@@ -78,13 +78,13 @@ const NavBar = ({showLogin,setShowLogin})=> {
        <a href="#menu" onClick={() => setOpenSideBar(false)}>Menu</a>
        <a href="#footer" onClick={() => setOpenSideBar(false)}>Contact</a>
        {
-        token && (
+        localStorage.getItem("token") && (
             <Link href="#footer" to="/myorders">My orders</Link>
 
         )
        }
-       {token ? 
-       <button onClick={()=>{logout(),setOpenSideBar(false)}} className="sidebar-signup-btn">Log Out</button>
+       {localStorage.getItem("token") ? 
+       <button onClick={()=>{logout(),setOpenSideBar(false)}} className="sidebar-logout-btn">Log Out</button>
        :<button onClick={()=>{setShowLogin(true),setOpenSideBar(false)}} className="sidebar-signup-btn">sign up</button>}
        
      </div>

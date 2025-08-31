@@ -71,7 +71,6 @@ Link{
     left:45px;
 
   }
-  .sidebar-signup-btn,
   .signup-btn {
   position: absolute;
   right: 10%;
@@ -88,7 +87,7 @@ Link{
   justify-content: center;
   width: 120px;
   height: 40px;
-  align-self: center;         /* ensures it's vertically centered */
+  align-self: center;
 }
 
   .sidebar-signup-btn,
@@ -162,8 +161,23 @@ Link{
     display: none;
   }
   .sidebar-signup-btn{ 
-    top:39%;
+    top:31%;
     left:10%;
+    position: absolute;
+  background-color: tomato;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;     
+  font-size: 0.8rem;
+  font-weight: 600;         
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 40px;
+  align-self: center;
   } 
   .nav-sidebar{ 
     position: absolute; 
@@ -205,4 +219,24 @@ Link{
     .sidebar-close-icon:hover { 
       transform: rotate(90deg);  
     } 
+    .sidebar-logout-btn{
+      top:39%;
+    left:10%;
+    position: absolute;
+  background-color: tomato;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;     
+  font-size: 0.8rem;
+  font-weight: 600;         
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 40px;
+  align-self: center;
+
+    }
   }
