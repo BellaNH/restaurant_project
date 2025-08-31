@@ -12,20 +12,20 @@ import categoryRouter from "./routes/categoryrouter.js"
 import authRouter from "./routes/authRouter.js"
 
 const app = express()
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4000     
 
-// ✅ 1. CORS FIRST and correctly configured
-const corsOptions = {
-  origin: process.env.FRONTEND_URL, // e.g. "https://restaurantw.netlify.app"
-  credentials: true,
-};
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: [
+    "http://localhost:5173",        
+    "https://restaurantw.netlify.app"   
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
-// ✅ 2. Then body parsing and cookies
 app.use(express.json())
 app.use(cookieParser())
 
-// ✅ 3. DB and routes
 connectDB()
 
 app.use("/api/auth", authRouter)
