@@ -44,7 +44,7 @@ const ResetPassword = () => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post("http://localhost:4000/api/auth/send-reset-otp",
+      const { data } = await axios.post("https://restaurant-project-ek2l.onrender.com/api/auth/send-reset-otp",
         { email }
       );
       console.log(data)
@@ -66,7 +66,7 @@ const ResetPassword = () => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post("http://localhost:4000/api/auth/reset-password",
+      const { data } = await axios.post("https://restaurant-project-ek2l.onrender.com/api/auth/reset-password",
         { email, otp, newPassword }
       );
 
