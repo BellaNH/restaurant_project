@@ -92,6 +92,7 @@ const AppProvider = ({ children }) => {
           Authorization:`Bearer ${localStorage.getItem("token")}`
         }}
       )
+      localStorage.setItem("isAdmin",data.data.isAdmin)
       console.log(data.data)
       setIsAdmin(data.data.isAdmin)
     }
@@ -117,7 +118,7 @@ const AppProvider = ({ children }) => {
   
   useEffect(()=>{console.log(localStorage.getItem("registeredUserId"))},[localStorage.getItem("registeredUserId")])
   useEffect(()=>{console.log(localStorage.getItem("token"))},[localStorage.getItem("token")])
-
+  useEffect(()=>{console.log(localStorage.getItem("isAdmin"))},[localStorage.getItem("isAdmin")])
   useEffect(()=>{
     console.log(isAdmin)
   },[isAdmin])

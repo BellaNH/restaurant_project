@@ -1,5 +1,6 @@
 .my-orders-container{
     width:100%;
+    height: 100vh;
     padding-top: 22vh;
     padding-bottom: 10vh;
 
@@ -16,16 +17,24 @@
     font-family: 'Poppins', sans-serif;
 
 } 
-.my-orders-row{
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr 1fr 1.5fr;
-    align-items: center;
-    padding: 0.5vw 1vw;
-    border: 1px solid #a9a9a9;
-    font-size: 0.7rem;
-    font-weight: 500;
-    line-height: 3.5vh;
-    font-family: 'Poppins', sans-serif;
+.my-orders-row {
+  display: grid;
+  grid-template-columns: 0.8fr 2fr 1fr 1fr 1.2fr;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.my-orders-row:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 .order-items{
     width: 90%;
@@ -38,15 +47,41 @@
     height:3vw;
     margin-left: 0;
 }
-.my-orders-row-btn{
-    padding: 0.8vw;
-    text-align: center;
-    background-color: #fff4f2;
-    border: none;
-    cursor: pointer;
-    font-size: 0.8rem;
-    font-weight: 600;
-    height: 3.5vw;
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.85rem;
+.my-orders-row-btn {
+  padding: 0.6rem 1rem;
+  text-align: center;
+  background-color: #fff4f2;
+  border-radius: 8px;
+  border: 1px solid #f5c6c6;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.my-orders-row-btn:hover {
+  background-color: #fddede;
+}
+@media (max-width:950px) {
+    .my-orders-container{
+        height: 100vh;
+       
+    }
+    .my-orders-title {
+        margin-bottom: 20px;
+    }
+    .my-orders-row {
+        display: flex;
+        flex-direction: column;
+        gap: 2vh;
+        text-align: left;
+    }
+    .my-orders-row-img{
+        width: 7vh;
+        height: 7vh;
+    }
+    .order-items{
+        width: 100%;
+    }
+
 }

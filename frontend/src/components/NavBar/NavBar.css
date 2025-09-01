@@ -43,7 +43,7 @@ Link{
   display: flex;
   justify-content: center;
   align-items: center;
-  gap:30px; 
+  gap:45px; 
   width: fit-content;
   margin-right: 9%;
   flex-wrap: nowrap;
@@ -51,15 +51,16 @@ Link{
 }
 
   .basket-icon-container{
-    width: 60px;
+    width: fit-content;
     position: relative;
-    height: 40px;
+    height: fit-content;
     }
   .basket-icon{
     cursor: pointer;
-    width: 40px;
+    width: 26px;
     max-width: 50px;
-    height: 40px;
+    height: 26px;
+    position: relative;
   }
   .dot{
     background-color: tomato;
@@ -68,7 +69,7 @@ Link{
     border-radius: 50%;
     position: absolute;
     top:0;
-    left:45px;
+    right:-5px;
 
   }
   .signup-btn {
@@ -161,7 +162,7 @@ Link{
     display: none;
   }
   .sidebar-signup-btn{ 
-    top:31%;
+    top:39%;
     left:10%;
     position: absolute;
   background-color: tomato;
@@ -220,7 +221,7 @@ Link{
       transform: rotate(90deg);  
     } 
     .sidebar-logout-btn{
-      top:39%;
+      top: 59%;
     left:10%;
     position: absolute;
   background-color: tomato;

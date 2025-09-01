@@ -1,5 +1,7 @@
 .card{
     padding-bottom: 3vh;
+    padding-top: 5vh;
+    height: 100vh;
 }
 .card-list-header{
     display: grid;
@@ -91,4 +93,88 @@
     height: 3vw;
     cursor: pointer;
     border: none;
+}
+@media (max-width:950px) {
+    .card{
+        margin-top: 20%;
+    }
+  .card-list-header {
+    display: none; 
+  }
+
+  .card-list-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid #ccc;
+    padding: 3vw;
+    margin-bottom: 3vw;
+    border-radius: 6px;
+  }
+
+  .card-list-item-img {
+    width: 20vw;
+    height: auto;
+    margin-bottom: 2vw;
+  }
+
+  .card-list-item-info,
+  .card-list-item-info-quantity,
+  .card-list-item-info-remove {
+    font-size: 0.9rem;
+    margin: 0.5vw 0;
+  }
+
+  .card-bottom {
+    flex-direction: column;
+    gap: 5vw;
+    padding: 5vw 0;
+  }
+
+  .card-totals {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .card-totals-line {
+    gap: 0vh;
+    justify-content: space-between;
+  }
+
+  .proceed-btn {
+    width: 80%;
+    height: 10vw;
+    font-size: 0.8rem;
+    margin-left: 27px;
+    margin-top: 10px;
+  }
+
+  .promo-code-container {
+    width: 100%;
+    gap: 0.5vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+    
+  }
+
+  .promo-code {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2vw;
+  }
+
+  .promo-code-input {
+    width: 100%;
+    height: 10vw;
+    font-size: 1rem;
+  }
+
+  .promo-code-submit-btn {
+    width: 80%;
+    height: 10vw;
+    font-size: 0.8rem;
+    margin-left: 27px;
+    margin-top: 10px;
+  }
 }

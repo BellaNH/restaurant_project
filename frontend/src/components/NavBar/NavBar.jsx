@@ -74,14 +74,18 @@ const NavBar = ({showLogin,setShowLogin})=> {
        >
          ✕
        </button>
-       <a href="#" onClick={() => setOpenSideBar(false)}>Home</a>
-       <a href="#menu" onClick={() => setOpenSideBar(false)}>Menu</a>
-       <a href="#footer" onClick={() => setOpenSideBar(false)}>Contact</a>
+       <a href="restaurantw.netlify.app/#" onClick={() => setOpenSideBar(false)}>Home</a>
+       <a href="restaurantw.netlify.app/#menu" onClick={() => setOpenSideBar(false)}>Menu</a>
+       <a href="restaurantw.netlify.app/#footer" onClick={() => setOpenSideBar(false)}>Contact</a>
        {
         localStorage.getItem("token") && (
-            <Link href="#footer" to="/myorders">My orders</Link>
-
-        )
+            <Link href="#footer" to="restaurantw.netlify.app/card">Card</Link>
+        )      
+       }
+       {
+        localStorage.getItem("token") && (
+            <Link href="#footer" to="restaurantw.netlify.app/myorders">My orders</Link>
+        )      
        }
        {localStorage.getItem("token") ? 
        <button onClick={()=>{logout(),setOpenSideBar(false)}} className="sidebar-logout-btn">Log Out</button>
