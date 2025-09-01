@@ -10,11 +10,6 @@
   font-family: 'Poppins', sans-serif;
 }
 
-html, body {
-  height: fit-content;
-  margin: 0;
-  overflow-x: hidden;
-}
 
 a{
   text-decoration: none;

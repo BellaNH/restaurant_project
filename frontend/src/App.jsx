@@ -16,6 +16,7 @@ import EmailVerify from './pages/EmailVerify'
 import ResetPassword from './pages/ResetPassword'
 import SideBar from "./components/SideBar/SideBar"
 import { useGlobalContext } from './Context/Context'
+
 function App() {
   const [showLogin,setShowLogin] = useState(false)
   const {isAdmin, setIsAdmin,userType} = useGlobalContext()

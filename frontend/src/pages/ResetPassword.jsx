@@ -78,7 +78,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="flex justify-center items-center pb-20 pt-8 bg-gradient-to-br from-[#ff7e5f] to-[#feb47b] ">
+    <div className="flex justify-center items-center lg:pb-20 h-screen md:pd-20 pt-8 bg-gradient-to-br from-[#ff7e5f] to-[#feb47b] ">
       {!isEmailSent && (
         <form
           onSubmit={onSubmitEmail}
