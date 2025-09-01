@@ -10,11 +10,6 @@ const Footer = ()=>{
                 <div className="left">
                     <img src={assets.restaurant_logo} className="footer-left-logo" alt=""/>
                     <p className="left-footer-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, maxime dicta facere eum modi dolores suscipit consectetur dolore voluptatem corrupti distinctio provident excepturi, itaque repudiandae quod non rem esse, deleniti repellat incidunt nostrum sit quidem fuga. Exercitationem animi magnam voluptates enim consequatur facere tempora? Nemo reprehenderit non totam quidem aperiam?</p>
-                    <div className="social-icons">
-                    <img src={assets.facebook_icon} className="f-img"/>
-                    <img src={assets.twitter_icon} className="t-img"/>
-                    <img src={assets.linkedin_icon} className="l-img"/>
-                    </div> 
                 </div>
                 <div className="center">
                     <h3 className="footer-title">COMPANY</h3>
