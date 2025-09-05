@@ -30,8 +30,8 @@ const NavBar = ({showLogin,setShowLogin})=> {
     </Link>
     <div className="nav-links">
         <Link to="/"  className={menu==="home"?"active-link":""}>Home</Link>
-        <HashLink to"#menu"  className={menu==="menu"?"active-link":""}>Menu</HashLink>
-        <HashLink to="#footer" className={menu==="contact us"?"active-link":""}>Contact</HashLink>
+        <HashLink smooth to="#menu"  className={menu==="menu"?"active-link":""}>Menu</HashLink>
+        <HashLink smooth to="#footer" className={menu==="contact us"?"active-link":""}>Contact</HashLink>
     </div>  
     {localStorage.getItem("token")
     ?<div className="right-navbar">
