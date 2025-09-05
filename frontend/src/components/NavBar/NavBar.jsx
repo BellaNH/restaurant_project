@@ -29,9 +29,9 @@ const NavBar = ({showLogin,setShowLogin})=> {
     <img src={assets.restaurant_logo} alt="" className="navbar-logo-img"/>
     </Link>
     <div className="nav-links">
-        <HashLink to="/"  className={menu==="home"?"active-link":""}>Home</HashLink>
-        <HashLink href="#menu"  className={menu==="menu"?"active-link":""}>Menu</HashLink>
-        <HashLink href="#footer" className={menu==="contact us"?"active-link":""}>Contact</HashLink>
+        <Link to="/"  className={menu==="home"?"active-link":""}>Home</Link>
+        <HashLink to"#menu"  className={menu==="menu"?"active-link":""}>Menu</HashLink>
+        <HashLink to="#footer" className={menu==="contact us"?"active-link":""}>Contact</HashLink>
     </div>  
     {localStorage.getItem("token")
     ?<div className="right-navbar">
@@ -80,12 +80,12 @@ const NavBar = ({showLogin,setShowLogin})=> {
        <HashLink smooth to="#footer" onClick={() => setOpenSideBar(false)}>Contact</HashLink>
        {
         localStorage.getItem("token") && (
-            <Link href="#footer" to="restaurantw.netlify.app/card">Card</Link>
+            <Link smooth to="/card">Card</Link>
         )      
        }
        {
         localStorage.getItem("token") && (
-            <Link href="#footer" to="restaurantw.netlify.app/myorders">My orders</Link>
+            <Link to="/myorders">My orders</Link>
         )      
        }
        {localStorage.getItem("token") ? 
