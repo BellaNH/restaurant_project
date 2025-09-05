@@ -30,7 +30,7 @@ const NavBar = ({showLogin,setShowLogin})=> {
     </Link>
     <div className="nav-links">
         <Link to="/"  className={menu==="home"?"active-link":""}>Home</Link>
-        <HashLink smooth to="#menu"  className={menu==="menu"?"active-link":""}>Menu</HashLink>
+        <HashLink smooth to="/#menu"  className={menu==="menu"?"active-link":""}>Menu</HashLink>
         <HashLink smooth to="#footer" className={menu==="contact us"?"active-link":""}>Contact</HashLink>
     </div>  
     {localStorage.getItem("token")
@@ -76,7 +76,7 @@ const NavBar = ({showLogin,setShowLogin})=> {
          ✕
        </button>
        <HashLink smooth to="#" onClick={() => setOpenSideBar(false)}>Home</HashLink>
-       <HashLink smooth to="#menu" onClick={() => setOpenSideBar(false)}>Menu</HashLink>
+       <HashLink smooth to="/#menu" onClick={() => setOpenSideBar(false)}>Menu</HashLink>
        <HashLink smooth to="#footer" onClick={() => setOpenSideBar(false)}>Contact</HashLink>
        {
         localStorage.getItem("token") && (
