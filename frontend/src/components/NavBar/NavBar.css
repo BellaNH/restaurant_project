@@ -8,7 +8,7 @@
     left:0; 
     z-index: 10;
     width: 100%;
-    height: fit-content ;
+    height: 60px ;
     background-color: white;
     border-bottom: 1.3px solid tomato;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -148,13 +148,30 @@ Link{
 .nav-sidebar-menu-icon{
   display: none;
 }
+@media (min-width: 768px) and (max-width: 1024px) {
+    .navbar {
+    height: 65px !important;  
+  }
+  .nav-sidebar-menu-icon{ 
+      width: 35px !important;
+    } 
+  .sidebar-signup-btn{ 
+    top:260px !important;
+    left:4% !important;
+    position: absolute;
+  }
+}
 @media (max-width: 950px) { 
   .nav-links{ 
     display: none; 
   } 
   .navbar{
-     height: 25px; 
+     height: 45px; 
     } 
+  .logo{
+    margin-left: 8%;
+    width: 25vw;
+  }
   .right-navbar{ 
     display: none;
   }
@@ -162,7 +179,7 @@ Link{
     display: none;
   }
   .sidebar-signup-btn{ 
-    top:39%;
+    top:265px;
     left:10%;
     position: absolute;
   background-color: tomato;
@@ -215,7 +232,7 @@ Link{
       right:10%; 
       display: block; 
       color: #F57F17; 
-      width: 15px; 
+      width: 20px; 
       margin-top:4px; } 
     .sidebar-close-icon:hover { 
       transform: rotate(90deg);  

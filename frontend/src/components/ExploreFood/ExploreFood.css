@@ -202,6 +202,33 @@
   background-color: 	#F57F17;
 }
 
+@media (min-width: 1024px) {
+  .menu-list {
+    gap: 3vw; 
+    padding-bottom: 1.5vw;
+  }
+
+  .section {
+    flex: 0 0 auto;
+    text-align: center;
+    width: 14vw;
+  }
+
+  .section-img {
+    width: 12vw; 
+    height: 12vw; 
+    object-fit: cover;
+  }
+
+  .section-name {
+    font-size: 1.1rem;
+    margin-top: 0.8rem;
+  }
+
+  .menu-list::-webkit-scrollbar {
+    display: none; 
+  }
+}
 @media (max-width: 950px) {
   .menu-header {
     flex-direction: column;
@@ -288,5 +315,21 @@
   display: none; 
 }
 }
-
+@media (min-height: 1024px){
+     .section {
+  flex: 0 0 auto;          
+  text-align: center;
+  width: 12vw;
+}
+.section-img {
+  width: 10vw;
+  height: 8vh;
+}
+.menu-list::-webkit-scrollbar {
+  display: none;
+}
+.section-name{
+  margin-left: 4px;
+}
+}
 

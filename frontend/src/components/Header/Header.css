@@ -56,16 +56,19 @@
     color: rgb(188, 188, 200);
     cursor: pointer;
 }
+
+
 @media (max-width: 950px) {
   .header {
       height: 65vh;
       padding-top: 20%;
+      margin-top: 20%;
   }
   .header-content {
       width: 90%;
       padding: 0 5vw;
       margin-left: auto;
-      margin-top: 20%;
+      margin-top: 10%;
       gap: 2.5vw;
   }
   .header-content h2 {
@@ -74,4 +77,20 @@
   .header-content p {
       font-size: 3.5vw;
   }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+    .header {
+    height: 85vh !important;  
+    padding-top: 12% !important;
+    margin-top: 16% !important;
+  }
+}
+@media (min-width: 1024px){
+  .header {
+    height: 34vw !important;  
+    padding-top: 12% !important;
+    margin-top: 12% !important;
+    padding-bottom: 50px;
+  }
+
 }
