@@ -238,8 +238,8 @@ Link{
       transform: rotate(90deg);  
     } 
     .sidebar-logout-btn{
-      top: 59%;
-    left:10%;
+      top: 400px;
+    left:20px;
     position: absolute;
   background-color: tomato;
   color: white;

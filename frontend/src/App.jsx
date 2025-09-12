@@ -41,9 +41,9 @@ function App() {
   return (
     <>
       {showLogin?<LoginPopUp showLogin={showLogin} setShowLogin={setShowLogin}/>:<></>}
-      <div className={localStorage.getItem("isAdmin")?"admin-app":"app"}>
+      <div className={JSON.parse(localStorage.getItem("isAdmin"))?"admin-app":"app"}>
         <NavBar showLogin={showLogin} setShowLogin={setShowLogin}/>
-        {isAdmin && <SideBar/>}
+        {JSON.parse(localStorage.getItem("isAdmin")) && <SideBar/>}
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/card" element={<Card/>}/>

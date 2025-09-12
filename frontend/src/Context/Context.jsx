@@ -111,11 +111,12 @@ const AppProvider = ({ children }) => {
     console.log(cardItems)
     console.log(`${url}/cart/get`)
     fetchList()
-     userType()
     loadData()
     fetchCategories()
   },[])
-  
+  useEffect(()=>{
+    userType()
+  },[localStorage.getItem("isAdmin")])
   useEffect(()=>{console.log(localStorage.getItem("registeredUserId"))},[localStorage.getItem("registeredUserId")])
   useEffect(()=>{console.log(localStorage.getItem("token"))},[localStorage.getItem("token")])
   useEffect(()=>{console.log(localStorage.getItem("isAdmin"))},[localStorage.getItem("isAdmin")])

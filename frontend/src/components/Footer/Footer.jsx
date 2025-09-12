@@ -5,7 +5,7 @@ import { useGlobalContext } from "../../Context/Context"
 const Footer = ()=>{
     const {isAdmin} = useGlobalContext()
     return(
-        <footer className={isAdmin ? "admin_footer":"footer"} id="footer">
+        <footer className={JSON.parse(localStorage.getItem("isAdmin")) ? "admin_footer":"footer"} id="footer">
             <div className="footer-content">
                 <div className="left">
                     <img src={assets.restaurant_logo} className="footer-left-logo" alt=""/>

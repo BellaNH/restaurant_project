@@ -4,6 +4,7 @@ import { useState , useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useGlobalContext } from "../../Context/Context"
 import { RiMenuLine } from "react-icons/ri";
+import { HashLink } from "react-router-hash-link"
 
 const NavBar = ({showLogin,setShowLogin})=> {
     const [menu,setMenu] = useState("")  
@@ -29,8 +30,8 @@ const NavBar = ({showLogin,setShowLogin})=> {
     </Link>
     <div className="nav-links">
         <Link to="/"  className={menu==="home"?"active-link":""}>Home</Link>
-        <a href="#menu"  className={menu==="menu"?"active-link":""}>Menu</a>
-        <a href="#footer" className={menu==="contact us"?"active-link":""}>Contact</a>
+        <HashLink smooth to="/#menu"  className={menu==="menu"?"active-link":""}>Menu</HashLink>
+        <HashLink smooth to="#footer" className={menu==="contact us"?"active-link":""}>Contact</HashLink>
     </div>  
     {localStorage.getItem("token")
     ?<div className="right-navbar">
@@ -74,17 +75,17 @@ const NavBar = ({showLogin,setShowLogin})=> {
        >
          ✕
        </button>
-       <a href="restaurantw.netlify.app/#" onClick={() => setOpenSideBar(false)}>Home</a>
-       <a href="restaurantw.netlify.app/#menu" onClick={() => setOpenSideBar(false)}>Menu</a>
-       <a href="restaurantw.netlify.app/#footer" onClick={() => setOpenSideBar(false)}>Contact</a>
+        <HashLink smooth to="#" onClick={() => setOpenSideBar(false)}>Home</HashLink>
+       <HashLink smooth to="/#menu" onClick={() => setOpenSideBar(false)}>Menu</HashLink>
+       <HashLink smooth to="#footer" onClick={() => setOpenSideBar(false)}>Contact</HashLink>
        {
         localStorage.getItem("token") && (
-            <Link href="#footer" to="restaurantw.netlify.app/card">Card</Link>
+            <Link smooth to="/card">Card</Link>
         )      
        }
        {
         localStorage.getItem("token") && (
-            <Link href="#footer" to="restaurantw.netlify.app/myorders">My orders</Link>
+            <Link to="/myorders">My orders</Link>
         )      
        }
        {localStorage.getItem("token") ? 
