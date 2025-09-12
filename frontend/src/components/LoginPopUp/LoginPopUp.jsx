@@ -72,12 +72,15 @@ const LoginPopUp = ({showLogin,setShowLogin})=>{
                 {currentState==="Sign Up"?<input onChange={onChangeHandler} name="name" type="text" className="form-inputs" placeholder="Username"/>:<></>}
                 <input onChange={onChangeHandler} name="email" type="email" className="form-inputs" placeholder="Your email"/>
                 <input onChange={onChangeHandler} name="password" type="password" className="form-inputs" placeholder="Password"/>
+                {currentState==="Login" && 
                 <p
             onClick={() => {setShowLogin(false),navigate("/resetPassword")}}
             className="forget-password-text"
             >
             Forgot password?
             </p>
+            }
+                
             {currentState==="Login"?
             <button type="submit" className="login-form-btn">Login</button>
             :<button type="submit" className="login-form-btn">Sign Up</button>}
