@@ -138,49 +138,111 @@ const LoginPopUp = ({ showLogin, setShowLogin }) => {
             
         }else{
         newUrl = `${url}/api/auth/register` 
+            console.log(`[SIGNUP] ========== REGISTRATION FLOW STARTED ==========`);
+            console.log(`[SIGNUP] Timestamp: ${new Date().toISOString()}`);
+            console.log(`[SIGNUP] API URL: ${newUrl}`);
+            console.log(`[SIGNUP] Request data:`, {
+                name: data.name,
+                email: data.email,
+                password: "***HIDDEN***",
+                confirmPassword: "***HIDDEN***"
+            });
+            console.log(`[SIGNUP] Timeout: 60000ms (60 seconds)`);
+            
             try{
+                const requestStartTime = Date.now();
+                console.log(`[SIGNUP] Sending registration request...`);
+                
                 // Increase timeout significantly to avoid client-side timeouts during testing
                 const response = await axios.post(newUrl,data, { timeout: 60000 })
+                
+                const requestTime = Date.now() - requestStartTime;
+                console.log(`[SIGNUP] Request completed in ${requestTime}ms`);
+                console.log(`[SIGNUP] Response status: ${response.status}`);
+                console.log(`[SIGNUP] Response data:`, response.data);
+                
                 if(response.data && response.data.success){
-                    localStorage.setItem("registeredUserId",response.data.userId)
+                    const userId = response.data.userId;
+                    console.log(`[SIGNUP] Registration successful!`);
+                    console.log(`[SIGNUP] User ID received: ${userId}`);
+                    
+                    // Store userId in localStorage
+                    console.log(`[SIGNUP] Storing userId in localStorage...`);
+                    localStorage.setItem("registeredUserId", userId);
+                    console.log(`[SIGNUP] localStorage.setItem('registeredUserId', '${userId}') - DONE`);
+                    console.log(`[SIGNUP] Verifying localStorage:`, localStorage.getItem("registeredUserId"));
+                    
+                    // Store userId in context
                     if (typeof setRegisteredUserId === "function") {
-                      setRegisteredUserId(response.data.userId)
+                        console.log(`[SIGNUP] Setting registeredUserId in context...`);
+                        setRegisteredUserId(userId);
+                        console.log(`[SIGNUP] Context updated with userId: ${userId}`);
+                    } else {
+                        console.warn(`[SIGNUP] WARNING: setRegisteredUserId function not available in context`);
                     }
+                    
                     const successMsg = response.data.message || "Account created! Please verify your email."
+                    console.log(`[SIGNUP] Success message: ${successMsg}`);
                     setStatus({type:"success",message:successMsg})
                     toast.success(successMsg)
+                    
+                    console.log(`[SIGNUP] Scheduling navigation to /emailVerify in 300ms...`);
                     setTimeout(()=>{
-                        setShowLogin(false)
-                        navigate("/emailVerify")
+                        console.log(`[SIGNUP] ========== NAVIGATING TO EMAIL VERIFY ==========`);
+                        console.log(`[SIGNUP] Closing login popup...`);
+                        setShowLogin(false);
+                        console.log(`[SIGNUP] Navigating to /emailVerify...`);
+                        navigate("/emailVerify");
+                        console.log(`[SIGNUP] Navigation initiated`);
                     },300)
                 } else {
+                    console.error(`[SIGNUP] Registration failed - no success flag in response`);
+                    console.error(`[SIGNUP] Response data:`, response.data);
                     const errorMsg = response.data?.message || "Registration failed."
                     setStatus({type:"error",message:errorMsg})
                     toast.error(errorMsg)
                 }
             }catch(error){
+                console.error(`[SIGNUP] ========== REGISTRATION ERROR ==========`);
+                console.error(`[SIGNUP] Error type: ${error.name || "Unknown"}`);
+                console.error(`[SIGNUP] Error message: ${error.message || "No message"}`);
+                console.error(`[SIGNUP] Error code: ${error.code || "No code"}`);
+                console.error(`[SIGNUP] Full error object:`, error);
+                
                 let errorMessage = "Registration failed. Please try again."
                 
                 if (error.response) {
+                    console.error(`[SIGNUP] Server responded with error status: ${error.response.status}`);
+                    console.error(`[SIGNUP] Error response data:`, error.response.data);
                     // Server responded with error status
                     errorMessage = error.response.data?.message || errorMessage
                     
                     // Handle validation errors
                     if (error.response.data?.errors && Array.isArray(error.response.data.errors)) {
+                        console.error(`[SIGNUP] Validation errors:`, error.response.data.errors);
                         errorMessage = error.response.data.errors.join(", ")
                     }
                 } else if (error.code === 'ECONNABORTED' || error.message.includes('timeout')) {
+                    console.error(`[SIGNUP] Request timeout error`);
                     errorMessage = "Request timed out. Please check your connection and try again."
                 } else if (error.request) {
+                    console.error(`[SIGNUP] No response received from server`);
+                    console.error(`[SIGNUP] Request object:`, error.request);
                     errorMessage = "No response from server. Please check your connection."
                 } else {
+                    console.error(`[SIGNUP] Request setup error`);
                     errorMessage = error.message || errorMessage
                 }
+                
+                console.error(`[SIGNUP] Final error message to display: ${errorMessage}`);
+                console.error(`[SIGNUP] ==========================================`);
                 
                 setStatus({type:"error",message:errorMessage})
                 toast.error(errorMessage)
             } finally {
+                console.log(`[SIGNUP] Setting submitting state to false`);
                 setSubmitting(false)
+                console.log(`[SIGNUP] ========== REGISTRATION FLOW ENDED ==========`);
             }
     }
     }

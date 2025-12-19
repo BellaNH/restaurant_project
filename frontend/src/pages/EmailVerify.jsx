@@ -14,6 +14,28 @@ const EmailVerify = () => {
   const [submitting, setSubmitting] = useState(false);
   const [resending, setResending] = useState(false);
 
+  // Log when component mounts/updates
+  useEffect(() => {
+    console.log(`[EMAIL_VERIFY] ========== COMPONENT MOUNTED/UPDATED ==========`);
+    console.log(`[EMAIL_VERIFY] Timestamp: ${new Date().toISOString()}`);
+    console.log(`[EMAIL_VERIFY] API URL: ${url}`);
+    console.log(`[EMAIL_VERIFY] registeredUserId from context:`, registeredUserId);
+    console.log(`[EMAIL_VERIFY] registeredUserId from localStorage:`, localStorage.getItem("registeredUserId"));
+    
+    const finalUserId = registeredUserId || localStorage.getItem("registeredUserId");
+    console.log(`[EMAIL_VERIFY] Final userId to use: ${finalUserId}`);
+    
+    if (!finalUserId) {
+      console.error(`[EMAIL_VERIFY] ERROR: No userId found in context or localStorage!`);
+      console.error(`[EMAIL_VERIFY] Context registeredUserId:`, registeredUserId);
+      console.error(`[EMAIL_VERIFY] localStorage registeredUserId:`, localStorage.getItem("registeredUserId"));
+      console.error(`[EMAIL_VERIFY] All localStorage keys:`, Object.keys(localStorage));
+    } else {
+      console.log(`[EMAIL_VERIFY] UserId found: ${finalUserId} - Ready for OTP verification`);
+    }
+    console.log(`[EMAIL_VERIFY] ==============================================`);
+  }, [registeredUserId, url]);
+
   const handleInput = (e, index) => {
     if (e.target.value.length > 0 && index < inputRefs.current.length - 1) {
       inputRefs.current[index + 1].focus();
@@ -37,44 +59,87 @@ const EmailVerify = () => {
   };
 
   const onSubmitHandler = async (e) => {
-      e.preventDefault();
+    e.preventDefault();
+
+    console.log(`[EMAIL_VERIFY] ========== OTP VERIFICATION STARTED ==========`);
+    console.log(`[EMAIL_VERIFY] Timestamp: ${new Date().toISOString()}`);
 
     const otpArray = inputRefs.current.map((input) => input?.value || "");
-      const otp = otpArray.join("");
+    const otp = otpArray.join("");
+    console.log(`[EMAIL_VERIFY] OTP entered: ${otp.length === 6 ? "******" : otp} (length: ${otp.length})`);
 
     if (otp.length !== 6) {
+      console.error(`[EMAIL_VERIFY] ERROR: Incomplete OTP (${otp.length} digits instead of 6)`);
       toast.error("Please enter the complete 6-digit OTP.");
       return;
     }
 
     const userId = registeredUserId || localStorage.getItem("registeredUserId");
+    console.log(`[EMAIL_VERIFY] UserId from context: ${registeredUserId}`);
+    console.log(`[EMAIL_VERIFY] UserId from localStorage: ${localStorage.getItem("registeredUserId")}`);
+    console.log(`[EMAIL_VERIFY] Final userId: ${userId}`);
+    
     if (!userId) {
+      console.error(`[EMAIL_VERIFY] ERROR: Missing userId!`);
+      console.error(`[EMAIL_VERIFY] Context registeredUserId:`, registeredUserId);
+      console.error(`[EMAIL_VERIFY] localStorage registeredUserId:`, localStorage.getItem("registeredUserId"));
       toast.error("Missing user information. Please sign up again.");
       return;
     }
 
+    console.log(`[EMAIL_VERIFY] Sending verification request...`);
+    console.log(`[EMAIL_VERIFY] API URL: ${url}/api/auth/verify-account`);
+    console.log(`[EMAIL_VERIFY] Request payload: { otp: "******", userId: "${userId}" }`);
+    
     setSubmitting(true);
+    const requestStartTime = Date.now();
+    
     try {
       const { data } = await axios.post(
         `${url}/api/auth/verify-account`,
         { otp, userId },
-        { timeout: 15000, withCredentials: true }
+        { timeout: 30000, withCredentials: true } // Increased timeout
       );
 
+      const requestTime = Date.now() - requestStartTime;
+      console.log(`[EMAIL_VERIFY] Verification request completed in ${requestTime}ms`);
+      console.log(`[EMAIL_VERIFY] Response data:`, data);
+
       if (data.success) {
+        console.log(`[EMAIL_VERIFY] ========== VERIFICATION SUCCESS ==========`);
+        console.log(`[EMAIL_VERIFY] Success message: ${data.message || "Email verified successfully."}`);
         toast.success(data.message || "Email verified successfully.");
+        console.log(`[EMAIL_VERIFY] Navigating to home page...`);
         navigate("/");
       } else {
+        console.error(`[EMAIL_VERIFY] Verification failed - no success flag`);
+        console.error(`[EMAIL_VERIFY] Error message: ${data.message || "Failed to verify email."}`);
         toast.error(data.message || "Failed to verify email.");
       }
     } catch (error) {
+      const requestTime = Date.now() - requestStartTime;
+      console.error(`[EMAIL_VERIFY] ========== VERIFICATION ERROR AFTER ${requestTime}ms ==========`);
+      console.error(`[EMAIL_VERIFY] Error type: ${error.name || "Unknown"}`);
+      console.error(`[EMAIL_VERIFY] Error message: ${error.message || "No message"}`);
+      console.error(`[EMAIL_VERIFY] Error code: ${error.code || "No code"}`);
+      console.error(`[EMAIL_VERIFY] Error response:`, error.response);
+      console.error(`[EMAIL_VERIFY] Error response status:`, error.response?.status);
+      console.error(`[EMAIL_VERIFY] Error response data:`, error.response?.data);
+      console.error(`[EMAIL_VERIFY] Full error:`, error);
+      
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
         "Failed to verify email. Please try again.";
+      
+      console.error(`[EMAIL_VERIFY] Final error message: ${errorMessage}`);
+      console.error(`[EMAIL_VERIFY] ==========================================`);
+      
       toast.error(errorMessage);
     } finally {
+      console.log(`[EMAIL_VERIFY] Setting submitting state to false`);
       setSubmitting(false);
+      console.log(`[EMAIL_VERIFY] ========== OTP VERIFICATION ENDED ==========`);
     }
   };
   

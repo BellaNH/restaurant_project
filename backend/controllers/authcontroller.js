@@ -219,32 +219,83 @@ export const register = async (req, res) => {
             text: `Your OTP is ${otp}. It expires 15 minutes later`
           };
 
+          console.log(`[REGISTER] Background: ========== EMAIL SENDING STARTED ==========`);
+          console.log(`[REGISTER] Background: Timestamp: ${new Date().toISOString()}`);
+          console.log(`[REGISTER] Background: User ID: ${user._id}`);
+          console.log(`[REGISTER] Background: User email: ${email}`);
+          console.log(`[REGISTER] Background: OTP to send: ${otp}`);
           console.log(`[REGISTER] Background: Attempting to send email for user: ${user._id}`);
+          console.log(`[REGISTER] Background: Email config - From: ${mailOptions.from}`);
+          console.log(`[REGISTER] Background: Email config - To: ${mailOptions.to}`);
+          console.log(`[REGISTER] Background: Email config - Subject: ${mailOptions.subject}`);
+          console.log(`[REGISTER] Background: SMTP_USER: ${process.env.SMTP_USER ? "SET" : "NOT SET"}`);
+          console.log(`[REGISTER] Background: SMTP_PASS: ${process.env.SMTP_PASS ? `SET (length: ${process.env.SMTP_PASS.length})` : "NOT SET"}`);
+          console.log(`[REGISTER] Background: SENDER_EMAIL: ${process.env.SENDER_EMAIL || "NOT SET (using SMTP_USER)"}`);
           
-          // Add timeout to email sending to prevent hanging indefinitely
+          const emailStartTime = Date.now();
+          
+          // Add timeout to email sending to prevent hanging indefinitely (increased to 60s for slow Gmail)
           const emailPromise = transporter.sendMail(mailOptions);
           const timeoutPromise = new Promise((_, reject) => 
-            setTimeout(() => reject(new Error("Email sending timeout after 30 seconds")), 30000)
+            setTimeout(() => reject(new Error("Email sending timeout after 60 seconds")), 60000)
           );
           
           Promise.race([emailPromise, timeoutPromise])
             .then((result) => {
-              console.log(`[REGISTER] Background: Email sent successfully for user: ${user._id}`);
-              console.log(`[REGISTER] Email response:`, result.response || "No response");
+              const emailTime = Date.now() - emailStartTime;
+              console.log(`[REGISTER] Background: ========== EMAIL SENT SUCCESSFULLY ==========`);
+              console.log(`[REGISTER] Background: Email sent in ${emailTime}ms`);
+              console.log(`[REGISTER] Background: User ID: ${user._id}`);
+              console.log(`[REGISTER] Background: Email sent to: ${email}`);
+              console.log(`[REGISTER] Background: Message ID: ${result.messageId || "No message ID"}`);
+              console.log(`[REGISTER] Background: Email response: ${result.response || "No response"}`);
+              console.log(`[REGISTER] Background: OTP sent: ${otp}`);
+              console.log(`[REGISTER] Background: ==========================================`);
             })
             .catch((emailError) => {
-              console.error(`[REGISTER] Background: Email sending error for user ${user._id}:`);
-              console.error(`[REGISTER] Error code:`, emailError.code);
-              console.error(`[REGISTER] Error message:`, emailError.message);
-              console.error(`[REGISTER] Full error:`, emailError);
+              const emailTime = Date.now() - emailStartTime;
+              console.error(`[REGISTER] Background: ========== EMAIL SENDING FAILED AFTER ${emailTime}ms ==========`);
+              console.error(`[REGISTER] Background: User ID: ${user._id}`);
+              console.error(`[REGISTER] Background: Email attempted: ${email}`);
+              console.error(`[REGISTER] Background: OTP that should have been sent: ${otp}`);
+              console.error(`[REGISTER] Background: Error name: ${emailError.name || "NO_NAME"}`);
+              console.error(`[REGISTER] Background: Error code: ${emailError.code || "NO_CODE"}`);
+              console.error(`[REGISTER] Background: Error message: ${emailError.message || "NO_MESSAGE"}`);
+              console.error(`[REGISTER] Background: Error command: ${emailError.command || "NO_COMMAND"}`);
+              console.error(`[REGISTER] Background: Full error object:`, emailError);
               
-              // Common Gmail errors
+              // Common Gmail errors with detailed guidance
               if (emailError.code === "EAUTH") {
-                console.error(`[REGISTER] AUTHENTICATION ERROR: Check your SMTP credentials`);
-                console.error(`[REGISTER] For Gmail, make sure you're using an App Password, not your regular password`);
+                console.error(`[REGISTER] Background: ========== GMAIL AUTHENTICATION ERROR ==========`);
+                console.error(`[REGISTER] Background: Gmail rejected the login credentials`);
+                console.error(`[REGISTER] Background: SOLUTION: Use an App Password, not your regular Gmail password`);
+                console.error(`[REGISTER] Background: Steps:`);
+                console.error(`[REGISTER] Background: 1. Enable 2-Step Verification on your Google Account`);
+                console.error(`[REGISTER] Background: 2. Generate an App Password at: https://myaccount.google.com/apppasswords`);
+                console.error(`[REGISTER] Background: 3. Use the 16-character App Password in SMTP_PASS`);
+                console.error(`[REGISTER] Background: 4. Make sure SMTP_USER is your full email address`);
+                console.error(`[REGISTER] Background: ================================================`);
               } else if (emailError.code === "ECONNECTION") {
-                console.error(`[REGISTER] CONNECTION ERROR: Cannot connect to Gmail SMTP server`);
+                console.error(`[REGISTER] Background: ========== GMAIL CONNECTION ERROR ==========`);
+                console.error(`[REGISTER] Background: Cannot connect to Gmail SMTP server`);
+                console.error(`[REGISTER] Background: Possible causes:`);
+                console.error(`[REGISTER] Background: - Internet connection issue`);
+                console.error(`[REGISTER] Background: - Firewall blocking SMTP connections`);
+                console.error(`[REGISTER] Background: - Gmail servers temporarily unavailable`);
+                console.error(`[REGISTER] Background: ==========================================`);
+              } else if (emailError.message && emailError.message.includes("timeout")) {
+                console.error(`[REGISTER] Background: ========== EMAIL SENDING TIMEOUT ==========`);
+                console.error(`[REGISTER] Background: Email sending took longer than 60 seconds`);
+                console.error(`[REGISTER] Background: Gmail SMTP is very slow or unresponsive`);
+                console.error(`[REGISTER] Background: Consider using a different email service for production`);
+                console.error(`[REGISTER] Background: ==========================================`);
+              } else {
+                console.error(`[REGISTER] Background: ========== UNKNOWN EMAIL ERROR ==========`);
+                console.error(`[REGISTER] Background: Unexpected error occurred during email sending`);
+                console.error(`[REGISTER] Background: Check error details above for more information`);
+                console.error(`[REGISTER] Background: ==========================================`);
               }
+              console.error(`[REGISTER] Background: ==========================================`);
             });
         } catch (emailSetupError) {
           console.error(`[REGISTER] Background: Error setting up email for user ${user._id}:`, emailSetupError.message || emailSetupError);
