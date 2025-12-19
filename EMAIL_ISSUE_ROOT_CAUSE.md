@@ -314,3 +314,4 @@ If all checks pass but emails still don't send, check:
 - Spam folder
 - Gmail security settings
 - Server logs for background email errors
+

@@ -76,3 +76,4 @@ For Gmail/Brevo/Mailgun, you need:
 - SMTP_PASS=your_password_or_api_key
 - SENDER_EMAIL=your_email
 
+

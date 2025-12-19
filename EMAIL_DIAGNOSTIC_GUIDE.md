@@ -242,3 +242,4 @@ console.log("SMTP_PASS:", process.env.SMTP_PASS ? `SET (${process.env.SMTP_PASS.
 5. **Confirm App Password** is being used (not regular password)
 
 If all checks pass but emails still don't send, the issue is likely with Gmail's delivery or your email being filtered as spam.
+
