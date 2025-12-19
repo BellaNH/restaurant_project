@@ -522,23 +522,69 @@ export const refreshToken = async (req, res) => {
 
 
 export const sendVerifyOtp = async (req, res) => {
+  const startTime = Date.now();
+  console.log(`[SEND_VERIFY_OTP] ========== REQUEST RECEIVED ==========`);
+  console.log(`[SEND_VERIFY_OTP] Timestamp: ${new Date().toISOString()}`);
+  console.log(`[SEND_VERIFY_OTP] Request body:`, JSON.stringify(req.body, null, 2));
+  console.log(`[SEND_VERIFY_OTP] Request headers:`, {
+    'content-type': req.headers['content-type'],
+    'origin': req.headers.origin,
+    'user-agent': req.headers['user-agent']
+  });
+
   try {
     const { userId } = req.body;
 
-    const user = await userModel.findById(userId).select("+verifyOtp");
-
-    if (user.isAccountVerified) {
-      return res.json({ success: false, message: "Account already verified" });
+    // Validate userId exists
+    if (!userId) {
+      console.error(`[SEND_VERIFY_OTP] ERROR: userId is missing from request body`);
+      return res.status(400).json({ 
+        success: false, 
+        message: "User ID is required",
+        error: "Missing userId in request body",
+        receivedBody: req.body
+      });
     }
 
+    console.log(`[SEND_VERIFY_OTP] Looking up user with ID: ${userId}`);
+    const user = await userModel.findById(userId).select("+verifyOtp");
+
+    if (!user) {
+      console.error(`[SEND_VERIFY_OTP] ERROR: User not found with ID: ${userId}`);
+      return res.status(404).json({ 
+        success: false, 
+        message: "User not found",
+        error: `No user found with ID: ${userId}`,
+        userId: userId
+      });
+    }
+
+    console.log(`[SEND_VERIFY_OTP] User found: ${user.email} (ID: ${user._id})`);
+
+    if (user.isAccountVerified) {
+      console.log(`[SEND_VERIFY_OTP] WARNING: Account already verified for user: ${user._id}`);
+      return res.status(400).json({ 
+        success: false, 
+        message: "Account already verified",
+        error: "This account has already been verified"
+      });
+    }
+
+    console.log(`[SEND_VERIFY_OTP] Generating new OTP for user: ${user._id}`);
     const otp = String(Math.floor(100000 + Math.random() * 900000));
+    console.log(`[SEND_VERIFY_OTP] Generated OTP: ${otp} (will be hashed)`);
+    
+    const hashStart = Date.now();
     const hashedOtp = await bycrypt.hash(otp, 10);
+    console.log(`[SEND_VERIFY_OTP] OTP hashed in ${Date.now() - hashStart}ms`);
 
     user.verifyOtp = hashedOtp;
     user.verifyOtpExpireAt = Date.now() + VERIFY_OTP_EXPIRY;
     user.verifyOtpAttempts = 0; // reset attempts on new OTP
 
+    const saveStart = Date.now();
     await user.save();
+    console.log(`[SEND_VERIFY_OTP] User saved in ${Date.now() - saveStart}ms`);
 
     const mailOptions = {
       from: process.env.SENDER_EMAIL || process.env.SMTP_USER,
@@ -550,11 +596,63 @@ export const sendVerifyOtp = async (req, res) => {
       ),
     };
 
-    await transporter.sendMail(mailOptions);
+    console.log(`[SEND_VERIFY_OTP] Preparing to send email:`);
+    console.log(`[SEND_VERIFY_OTP] From: ${mailOptions.from}`);
+    console.log(`[SEND_VERIFY_OTP] To: ${mailOptions.to}`);
+    console.log(`[SEND_VERIFY_OTP] SMTP_USER: ${process.env.SMTP_USER ? "SET" : "NOT SET"}`);
+    console.log(`[SEND_VERIFY_OTP] SMTP_PASS: ${process.env.SMTP_PASS ? `SET (length: ${process.env.SMTP_PASS.length})` : "NOT SET"}`);
 
-    res.json({ success: true, message: "Verification OTP sent to your email" });
+    const emailStart = Date.now();
+    const emailResult = await transporter.sendMail(mailOptions);
+    console.log(`[SEND_VERIFY_OTP] Email sent successfully in ${Date.now() - emailStart}ms`);
+    console.log(`[SEND_VERIFY_OTP] Email message ID: ${emailResult.messageId}`);
+    console.log(`[SEND_VERIFY_OTP] Email response: ${emailResult.response || "No response"}`);
+
+    const totalTime = Date.now() - startTime;
+    console.log(`[SEND_VERIFY_OTP] Total request time: ${totalTime}ms`);
+    console.log(`[SEND_VERIFY_OTP] ========== SUCCESS ==========`);
+
+    return res.status(200).json({ 
+      success: true, 
+      message: "Verification OTP sent to your email",
+      messageId: emailResult.messageId
+    });
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    const totalTime = Date.now() - startTime;
+    console.error(`[SEND_VERIFY_OTP] ========== ERROR AFTER ${totalTime}ms ==========`);
+    console.error(`[SEND_VERIFY_OTP] Error name: ${error.name || "NO_NAME"}`);
+    console.error(`[SEND_VERIFY_OTP] Error message: ${error.message || "NO_MESSAGE"}`);
+    console.error(`[SEND_VERIFY_OTP] Error code: ${error.code || "NO_CODE"}`);
+    console.error(`[SEND_VERIFY_OTP] Error stack:`, error.stack || "NO_STACK");
+    console.error(`[SEND_VERIFY_OTP] Full error:`, JSON.stringify(error, Object.getOwnPropertyNames(error), 2));
+
+    // Email-specific errors
+    if (error.code === "EAUTH") {
+      console.error(`[SEND_VERIFY_OTP] GMAIL AUTHENTICATION ERROR`);
+      return res.status(500).json({ 
+        success: false, 
+        message: "Failed to send email: Authentication error. Please check SMTP configuration.",
+        error: error.message,
+        code: error.code,
+        details: "Gmail authentication failed. Make sure you're using an App Password."
+      });
+    } else if (error.code === "ECONNECTION") {
+      console.error(`[SEND_VERIFY_OTP] GMAIL CONNECTION ERROR`);
+      return res.status(500).json({ 
+        success: false, 
+        message: "Failed to send email: Cannot connect to email server.",
+        error: error.message,
+        code: error.code
+      });
+    }
+
+    return res.status(500).json({ 
+      success: false, 
+      message: error.message || "Failed to send verification OTP",
+      error: error.message,
+      code: error.code || "UNKNOWN_ERROR",
+      details: "An unexpected error occurred while sending the verification email"
+    });
   }
 };
 

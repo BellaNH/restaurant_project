@@ -9,7 +9,7 @@ const FoodItem = memo(({ item }) => {
     useGlobalContext();
   return (
     <div className="item-container">
-      <div className="img-container">
+        <div className="img-container">
         <img src={`${url}/images/${image}`} className="item-img" alt={name} />
         {isLoggedin &&
           (!cardItems[_id] ? (
@@ -20,14 +20,14 @@ const FoodItem = memo(({ item }) => {
               alt="add item"
             />
           ) : (
-            <div className="item-counter">
+          <div className="item-counter">
               <img
                 onClick={() => removefromcard(_id)}
                 src={assets.remove_icon_red}
                 className="remove-item-counter"
                 alt="remove item"
               />
-              <p className="counter-display">{cardItems[_id]}</p>
+            <p className="counter-display">{cardItems[_id]}</p>
               <img
                 onClick={() => addtocart(_id)}
                 src={assets.add_icon_green}
@@ -36,14 +36,14 @@ const FoodItem = memo(({ item }) => {
               />
             </div>
           ))}
-      </div>
-      <div className="item-infos">
-        <div className="item-name-rate">
-          <h4 className="item-name">{name}</h4>
         </div>
-        <p className="item-desc">{description}</p>
-        <p className="item-price">${price}</p>
-      </div>
+        <div className="item-infos">
+            <div className="item-name-rate">
+                <h4 className="item-name">{name}</h4>
+            </div>
+            <p className="item-desc">{description}</p>
+            <p className="item-price">${price}</p>
+        </div>
     </div>
   );
 });

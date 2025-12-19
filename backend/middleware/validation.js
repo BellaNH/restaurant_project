@@ -38,6 +38,12 @@ export const sanitizeObject = (obj) => {
  */
 export const validate = (schema) => {
   return (req, res, next) => {
+    const routePath = req.path || req.route?.path || "unknown";
+    console.log(`[VALIDATION] ========== VALIDATION START ==========`);
+    console.log(`[VALIDATION] Route: ${req.method} ${routePath}`);
+    console.log(`[VALIDATION] Request body:`, JSON.stringify(req.body, null, 2));
+    console.log(`[VALIDATION] Schema fields:`, Object.keys(schema).join(", "));
+    
     const errors = [];
     
     // Sanitize request body first
@@ -50,9 +56,13 @@ export const validate = (schema) => {
       const rules = schema[field];
       const value = req.body[field];
       
+      console.log(`[VALIDATION] Validating field: ${field}, value: ${value === undefined ? "undefined" : value === null ? "null" : typeof value === "string" ? `"${value}"` : value}`);
+      
       // Check required fields
       if (rules.required && (value === undefined || value === null || value === '')) {
-        errors.push(`${field} is required`);
+        const errorMsg = `${field} is required`;
+        console.error(`[VALIDATION] ERROR: ${errorMsg}`);
+        errors.push(errorMsg);
         continue;
       }
       
@@ -125,13 +135,24 @@ export const validate = (schema) => {
     }
     
     if (errors.length > 0) {
+      console.error(`[VALIDATION] ========== VALIDATION FAILED ==========`);
+      console.error(`[VALIDATION] Route: ${req.method} ${routePath}`);
+      console.error(`[VALIDATION] Number of errors: ${errors.length}`);
+      console.error(`[VALIDATION] Errors:`, errors);
+      console.error(`[VALIDATION] Request body received:`, JSON.stringify(req.body, null, 2));
+      console.error(`[VALIDATION] ========================================`);
+      
       return res.status(400).json({
         success: false,
         message: "Validation failed",
-        errors: errors
+        errors: errors,
+        receivedBody: req.body,
+        route: `${req.method} ${routePath}`
       });
     }
     
+    console.log(`[VALIDATION] Validation passed for route: ${req.method} ${routePath}`);
+    console.log(`[VALIDATION] ========== VALIDATION SUCCESS ==========`);
     next();
   };
 };

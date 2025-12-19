@@ -37,10 +37,10 @@ const EmailVerify = () => {
   };
 
   const onSubmitHandler = async (e) => {
-    e.preventDefault();
+      e.preventDefault();
 
     const otpArray = inputRefs.current.map((input) => input?.value || "");
-    const otp = otpArray.join("");
+      const otp = otpArray.join("");
 
     if (otp.length !== 6) {
       toast.error("Please enter the complete 6-digit OTP.");
@@ -81,9 +81,14 @@ const EmailVerify = () => {
   const resendOTP = async () => {
     const userId = registeredUserId || localStorage.getItem("registeredUserId");
     if (!userId) {
+      console.error("[RESEND_OTP] Missing userId:", { registeredUserId, localStorageUserId: localStorage.getItem("registeredUserId") });
       toast.error("Missing user information. Please sign up again.");
       return;
     }
+
+    console.log("[RESEND_OTP] Starting resend OTP request");
+    console.log("[RESEND_OTP] UserId:", userId);
+    console.log("[RESEND_OTP] API URL:", `${url}/api/auth/send-verify-otp`);
 
     setResending(true);
     try {
@@ -93,16 +98,62 @@ const EmailVerify = () => {
         { timeout: 15000, withCredentials: true }
       );
 
+      console.log("[RESEND_OTP] Response received:", data);
+
       if (data.success) {
         toast.success(data.message || "Verification OTP sent to your email.");
       } else {
+        console.error("[RESEND_OTP] Request failed:", data);
         toast.error(data.message || "Failed to resend OTP.");
       }
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message ||
-        error.message ||
-        "Failed to resend OTP. Please try again.";
+      console.error("[RESEND_OTP] ========== ERROR ==========");
+      console.error("[RESEND_OTP] Error object:", error);
+      console.error("[RESEND_OTP] Error response:", error.response);
+      console.error("[RESEND_OTP] Error status:", error.response?.status);
+      console.error("[RESEND_OTP] Error data:", error.response?.data);
+      console.error("[RESEND_OTP] Error message:", error.message);
+      console.error("[RESEND_OTP] Request URL:", error.config?.url);
+      console.error("[RESEND_OTP] Request method:", error.config?.method);
+      console.error("[RESEND_OTP] Request data:", error.config?.data);
+      console.error("[RESEND_OTP] ===========================");
+
+      let errorMessage = "Failed to resend OTP. Please try again.";
+      
+      if (error.response) {
+        // Server responded with error status
+        const status = error.response.status;
+        const errorData = error.response.data;
+        
+        if (status === 404) {
+          errorMessage = errorData?.message || `Endpoint not found: ${error.config?.url}`;
+          if (errorData?.availableRoutes) {
+            console.log("[RESEND_OTP] Available routes:", errorData.availableRoutes);
+          }
+        } else if (status === 400) {
+          errorMessage = errorData?.message || "Invalid request. Please check your input.";
+          if (errorData?.errors && Array.isArray(errorData.errors)) {
+            errorMessage += ` Errors: ${errorData.errors.join(", ")}`;
+          }
+        } else if (status === 429) {
+          errorMessage = errorData?.message || "Too many requests. Please wait before trying again.";
+        } else if (status === 500) {
+          errorMessage = errorData?.message || "Server error. Please try again later.";
+          if (errorData?.details) {
+            errorMessage += ` Details: ${errorData.details}`;
+          }
+        } else {
+          errorMessage = errorData?.message || error.message || errorMessage;
+        }
+      } else if (error.request) {
+        // Request was made but no response received
+        errorMessage = "No response from server. Please check your connection.";
+        console.error("[RESEND_OTP] No response received. Request:", error.request);
+      } else {
+        // Error setting up the request
+        errorMessage = error.message || errorMessage;
+      }
+      
       toast.error(errorMessage);
     } finally {
       setResending(false);

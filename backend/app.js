@@ -49,6 +49,43 @@ app.get("/", (req, res) => {
   res.send("API Working");
 });
 
+// 404 handler for undefined routes - MUST be after all route definitions but before error handlers
+app.use((req, res, next) => {
+  console.error(`[404] ========== ROUTE NOT FOUND ==========`);
+  console.error(`[404] Method: ${req.method}`);
+  console.error(`[404] URL: ${req.originalUrl || req.url}`);
+  console.error(`[404] Path: ${req.path}`);
+  console.error(`[404] Query:`, JSON.stringify(req.query, null, 2));
+  console.error(`[404] Body:`, JSON.stringify(req.body, null, 2));
+  console.error(`[404] Headers:`, {
+    'content-type': req.headers['content-type'],
+    'origin': req.headers.origin,
+    'user-agent': req.headers['user-agent']
+  });
+  console.error(`[404] ======================================`);
+  
+  res.status(404).json({
+    success: false,
+    message: `Route not found: ${req.method} ${req.originalUrl || req.url}`,
+    error: "The requested endpoint does not exist",
+    method: req.method,
+    url: req.originalUrl || req.url,
+    path: req.path,
+    availableRoutes: {
+      auth: [
+        "POST /api/auth/register",
+        "POST /api/auth/login",
+        "POST /api/auth/logout",
+        "POST /api/auth/send-verify-otp",
+        "POST /api/auth/verify-account",
+        "POST /api/auth/send-reset-otp",
+        "POST /api/auth/reset-password",
+        "POST /api/auth/test-email"
+      ]
+    }
+  });
+});
+
 // Database error handler middleware (must be before other error handlers)
 app.use(handleDBError);
 

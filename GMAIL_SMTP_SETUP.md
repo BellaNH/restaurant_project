@@ -76,3 +76,4 @@ If Gmail continues to cause issues, consider:
 - Resend (free tier: 3000 emails/month)
 
 These services are more reliable for production applications and have better documentation.
+

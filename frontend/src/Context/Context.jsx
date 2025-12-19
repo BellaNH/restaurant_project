@@ -78,16 +78,16 @@ const AppProvider = ({ children }) => {
         ? { ...prev, [itemId]: prev[itemId] - 1 }
         : (() => {
             const { [itemId]: _, ...rest } = prev;
-            return rest;
-          })()
+        return rest;
+    })()
     );
     if (isLoggedin) {
       try {
         await axios.post(`${url}/cart/remove`, { itemId });
       } catch (error) {
         toast.error("Could not remove item");
-      }
     }
+  }
   };
 
   const fetchCartItems = async () => {
@@ -99,11 +99,11 @@ const AppProvider = ({ children }) => {
         : setCardItems({});
     } catch (error) {
       setCardItems({});
-    } finally {
+      } finally {
       setCartLoading(false);
-    }
+      }
   };
-
+  
   const fetchList = async (page = 1, force = false) => {
     const now = Date.now();
     if (
@@ -159,7 +159,7 @@ const AppProvider = ({ children }) => {
       } else {
         setIsLoggedin(false);
         setIsAdmin(false);
-      }
+    }
     } catch (error) {
       // silently fail; user not admin or token invalid
       setIsLoggedin(false);
@@ -177,37 +177,37 @@ const AppProvider = ({ children }) => {
     loadData();
   }, []);
 
-  return (
+return (
     <AppContext.Provider
       value={{
-        food_list,
-        cardItems,
-        setCardItems,
-        addtocart,
-        removefromcard,
-        getTotalAmount,
-        url,
-        list,
-        listPage,
-        listPages,
-        listTotal,
-        listLimit,
-        listLoading,
-        fetchList,
-        fetchCategories,
-        categories,
-        categoriesLoading,
-        setCategories,
-        isLoggedin,
-        setIsLoggedin,
-        userData,
-        setUserData,
+      food_list,
+      cardItems,
+      setCardItems,
+      addtocart,
+      removefromcard,
+      getTotalAmount,
+      url,
+      list,
+      listPage,
+      listPages,
+      listTotal,
+      listLimit,
+      listLoading,
+      fetchList,
+      fetchCategories,
+      categories,
+      categoriesLoading,
+      setCategories,
+      isLoggedin,
+      setIsLoggedin,
+      userData,
+      setUserData,
         registeredUserId,
         setRegisteredUserId,
-        isAdmin,
-        setIsAdmin,
-        userType,
-        setList,
+      isAdmin, 
+      setIsAdmin,
+      userType,
+      setList,
         cartLoading,
       }}
     >

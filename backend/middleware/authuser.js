@@ -7,8 +7,8 @@ const authUser = async (req, res, next) => {
     // Prefer Authorization header, but also support httpOnly cookies
     const authHeader = req.headers.authorization;
     let token =
-      authHeader && authHeader.startsWith("Bearer ")
-        ? authHeader.split(" ")[1]
+      authHeader && authHeader.startsWith("Bearer ") 
+        ? authHeader.split(" ")[1] 
         : null;
 
     if (!token && req.cookies) {
@@ -17,21 +17,21 @@ const authUser = async (req, res, next) => {
     }
 
     if (!token) {
-      return res.status(401).json({
-        success: false,
+      return res.status(401).json({ 
+        success: false, 
         message: "Access not authorized. Token required.",
       });
     }
 
     // Verify token
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-
+    
     // Get user from database to verify user exists
     const user = await userModel.findById(decodedToken.id);
-
+    
     if (!user) {
-      return res.status(401).json({
-        success: false,
+      return res.status(401).json({ 
+        success: false, 
         message: "User not found",
       });
     }
@@ -47,20 +47,20 @@ const authUser = async (req, res, next) => {
     next();
   } catch (error) {
     if (error.name === "JsonWebTokenError") {
-      return res.status(401).json({
-        success: false,
+      return res.status(401).json({ 
+        success: false, 
         message: "Invalid token",
       });
     }
     if (error.name === "TokenExpiredError") {
-      return res.status(401).json({
-        success: false,
+      return res.status(401).json({ 
+        success: false, 
         message: "Token expired",
       });
     }
-    return res.status(500).json({
-      success: false,
-      message: "Authentication error",
+    return res.status(500).json({ 
+      success: false, 
+      message: "Authentication error", 
       error: error.message,
     });
   }
