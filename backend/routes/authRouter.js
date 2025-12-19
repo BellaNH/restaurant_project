@@ -9,6 +9,7 @@ import {
   resetPassword,
   sendResetOtp,
   sendVerifyOtp,
+  testEmail,
   verifyEmail,
 } from "../controllers/authcontroller.js";
 import authUser from "../middleware/authuser.js";
