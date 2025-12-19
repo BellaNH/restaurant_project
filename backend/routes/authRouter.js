@@ -56,6 +56,7 @@ authRouter.post("/login", loginLimiter, validate(loginSchema), login);
 authRouter.post("/logout", logout);
 authRouter.post("/logout-all", authUser, logoutAll);
 authRouter.post("/refresh", refreshToken);
+authRouter.post("/test-email", testEmail); // Test endpoint for email configuration
 authRouter.post("/send-verify-otp", otpSendLimiter, validate(sendVerifyOtpSchema), sendVerifyOtp);
 authRouter.post("/verify-account", validate(verifyEmailSchema), verifyEmail);
 authRouter.post("/send-reset-otp", otpSendLimiter, validate(sendResetOtpSchema), sendResetOtp);

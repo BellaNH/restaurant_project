@@ -60,6 +60,89 @@ const clearAuthCookies = (res) => {
   res.clearCookie("refreshToken", cookieOptions);
 };
 
+// Test endpoint to verify email configuration
+export const testEmail = async (req, res) => {
+  try {
+    const { testEmail } = req.body;
+    const recipientEmail = testEmail || process.env.SMTP_USER;
+
+    if (!recipientEmail) {
+      return res.status(400).json({
+        success: false,
+        message: "No email address provided. Use testEmail in request body or set SMTP_USER in .env",
+      });
+    }
+
+    console.log("[TEST EMAIL] Starting email test...");
+    console.log("[TEST EMAIL] SMTP_USER:", process.env.SMTP_USER || "NOT SET");
+    console.log("[TEST EMAIL] SMTP_PASS:", process.env.SMTP_PASS ? `SET (length: ${process.env.SMTP_PASS.length})` : "NOT SET");
+    console.log("[TEST EMAIL] SENDER_EMAIL:", process.env.SENDER_EMAIL || "NOT SET");
+    console.log("[TEST EMAIL] Sending test email to:", recipientEmail);
+
+    const mailOptions = {
+      from: process.env.SENDER_EMAIL || process.env.SMTP_USER,
+      to: recipientEmail,
+      subject: "Test Email - Restaurant App",
+      text: "This is a test email from your Restaurant App. If you received this, your email configuration is working correctly!",
+      html: "<p>This is a <strong>test email</strong> from your Restaurant App.</p><p>If you received this, your email configuration is working correctly!</p>",
+    };
+
+    const result = await transporter.sendMail(mailOptions);
+
+    console.log("[TEST EMAIL] Email sent successfully!");
+    console.log("[TEST EMAIL] Message ID:", result.messageId);
+    console.log("[TEST EMAIL] Response:", result.response);
+
+    return res.status(200).json({
+      success: true,
+      message: "Test email sent successfully! Check your inbox.",
+      messageId: result.messageId,
+      to: recipientEmail,
+    });
+  } catch (error) {
+    console.error("[TEST EMAIL] ========== EMAIL TEST FAILED ==========");
+    console.error("[TEST EMAIL] Error code:", error.code || "NO_CODE");
+    console.error("[TEST EMAIL] Error message:", error.message || "NO_MESSAGE");
+    console.error("[TEST EMAIL] Full error:", JSON.stringify(error, null, 2));
+
+    let errorMessage = "Failed to send test email";
+    let suggestions = [];
+
+    if (error.code === "EAUTH") {
+      errorMessage = "Gmail authentication failed";
+      suggestions = [
+        "Make sure you're using an App Password, not your regular Gmail password",
+        "Enable 2-Step Verification on your Google Account",
+        "Generate a new App Password at: https://myaccount.google.com/apppasswords",
+        "Verify SMTP_USER is your full email address (e.g., yourname@gmail.com)",
+        "Verify SMTP_PASS is the 16-character App Password (no spaces)",
+      ];
+    } else if (error.code === "ECONNECTION") {
+      errorMessage = "Cannot connect to Gmail SMTP server";
+      suggestions = [
+        "Check your internet connection",
+        "Verify firewall isn't blocking SMTP connections",
+        "Try again in a few minutes",
+      ];
+    } else if (error.code === "ETIMEDOUT") {
+      errorMessage = "Connection to Gmail timed out";
+      suggestions = [
+        "Check your internet connection",
+        "Gmail servers might be temporarily unavailable",
+        "Try again in a few minutes",
+      ];
+    }
+
+    return res.status(500).json({
+      success: false,
+      message: errorMessage,
+      error: error.message,
+      code: error.code,
+      suggestions,
+    });
+  }
+};
+
 export const register = async (req, res) => {
   // Input is already validated and sanitized by middleware
   const { name, email, password } = req.body;
