@@ -145,11 +145,23 @@ export const register = async (req, res) => {
           );
           
           Promise.race([emailPromise, timeoutPromise])
-            .then(() => {
+            .then((result) => {
               console.log(`[REGISTER] Background: Email sent successfully for user: ${user._id}`);
+              console.log(`[REGISTER] Email response:`, result.response || "No response");
             })
             .catch((emailError) => {
-              console.error(`[REGISTER] Background: Email sending error for user ${user._id}:`, emailError.message || emailError);
+              console.error(`[REGISTER] Background: Email sending error for user ${user._id}:`);
+              console.error(`[REGISTER] Error code:`, emailError.code);
+              console.error(`[REGISTER] Error message:`, emailError.message);
+              console.error(`[REGISTER] Full error:`, emailError);
+              
+              // Common Gmail errors
+              if (emailError.code === "EAUTH") {
+                console.error(`[REGISTER] AUTHENTICATION ERROR: Check your SMTP credentials`);
+                console.error(`[REGISTER] For Gmail, make sure you're using an App Password, not your regular password`);
+              } else if (emailError.code === "ECONNECTION") {
+                console.error(`[REGISTER] CONNECTION ERROR: Cannot connect to Gmail SMTP server`);
+              }
             });
         } catch (emailSetupError) {
           console.error(`[REGISTER] Background: Error setting up email for user ${user._id}:`, emailSetupError.message || emailSetupError);

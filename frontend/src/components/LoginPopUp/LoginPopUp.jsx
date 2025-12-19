@@ -203,8 +203,8 @@ const LoginPopUp = ({ showLogin, setShowLogin }) => {
     }
    
     return(
-        <div className="login-container" role="dialog" aria-modal="true" aria-label={currentState === "Login" ? "Login form" : "Sign up form"} onClick={closePopup}>
-            <form className="login-form fade-in" onSubmit={onLoginHandler} onClick={e=>e.stopPropagation()}>
+        <div className="login-container" role="dialog" aria-modal="true" aria-label={currentState === "Login" ? "Login form" : "Sign up form"}>
+            <form className="login-form fade-in" onSubmit={onLoginHandler}>
                 <div className="form-header">
                     <h2 className="login-title">{currentState}</h2>
                     <button
