@@ -1,7 +1,10 @@
 import express from "express"
 import {fetchCategories,addCategory,fetchEditedCategory,editCategory,removeCategory} from "../controllers/categorycontroller.js"
 import multer from "multer"
-import authUser from "../middleware/authuser.js"
+import authAdmin from "../middleware/authAdmin.js"
+import { validate } from "../middleware/validation.js"
+import { categorySchema, editCategorySchema, removeCategorySchema } from "../middleware/validationSchemas.js"
+import { validateImageUpload, requireFileUpload } from "../middleware/fileUploadValidation.js"
 
 const categoryRouter = express.Router()
 const storage = multer.diskStorage({
@@ -12,11 +15,13 @@ const storage = multer.diskStorage({
 })
 const upload = multer({storage:storage})
 
+// Public route - anyone can view categories
 categoryRouter.get("/list",fetchCategories)
-categoryRouter.post("/addCategory",authUser,upload.single("image"),addCategory)
-categoryRouter.get('/fetchEditedCateg',authUser,fetchEditedCategory)
-categoryRouter.post('/editCategory',authUser,upload.single("image"),editCategory)
-categoryRouter.post('/removeCategory',authUser,removeCategory)
+// Admin routes - require admin authentication
+categoryRouter.post("/addCategory",authAdmin,upload.single("image"),requireFileUpload,validateImageUpload,validate(categorySchema),addCategory)
+categoryRouter.get('/fetchEditedCateg',authAdmin,fetchEditedCategory)
+categoryRouter.post('/editCategory',authAdmin,upload.single("image"),validateImageUpload,validate(editCategorySchema),editCategory)
+categoryRouter.post('/removeCategory',authAdmin,validate(removeCategorySchema),removeCategory)
 
 
 export default categoryRouter

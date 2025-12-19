@@ -5,14 +5,13 @@ const fetchCategories = async (req,res)=>{
     try{
         const fetchedcat = await categoryModel.find({})
         return res.json({success:true,data:fetchedcat})
-        console.log(fetchedcat)
-        return res.json({success:true,data:fetchedcat,message:"categpries fetched successfuly"})
     }
     catch(error){
         return res.json({success:false,message:error})
     }
 }
 const addCategory = async (req,res)=>{
+    // Input is already validated and sanitized by middleware
     let image_filename = `${req.file.filename}`
     try{
         const newCategory = new categoryModel({
@@ -21,7 +20,6 @@ const addCategory = async (req,res)=>{
         })
         await newCategory.save()
         return res.json({success:true,data:newCategory})
-        console.log(newCategory)
     }
     catch(error){
         return res.json({success:false,message:error})

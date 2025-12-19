@@ -38,4 +38,5 @@ export const menu_list = [
     {
         menu_name: "Noodles",
     }]
-export const url = 'https://restaurant-project-ek2l.onrender.com'
+import API_BASE_URL from '../../config/api.js'
+export const url = API_BASE_URL

@@ -27,13 +27,21 @@ Link{
     display: flex;
     gap:4vw;
     color: hsl(226, 27%, 39%);
-    font-size: 1.5vw;
+    /* Refined typography for main nav links on desktop */
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     cursor: pointer;
     width: auto;
     margin-left: 25%;
   }
   .nav-links a{
     width: auto;
+    text-decoration: none;
+    color: inherit;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    transition: color 0.2s ease, border-color 0.2s ease;
   }
   .active-link{
     padding-bottom: 0.5vw;
@@ -57,9 +65,9 @@ Link{
     }
   .basket-icon{
     cursor: pointer;
-    width: 26px;
+    width: 22px;
     max-width: 50px;
-    height: 26px;
+    height: 22px;
     position: relative;
   }
   .dot{
@@ -99,47 +107,92 @@ Link{
     position: relative;
     cursor: pointer;
   }
+  .profile-button {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .profile-button:hover {
+    background-color: rgba(245, 127, 23, 0.1);
+  }
   .navbar-profile-pic{
-    width:2.1vw;
-    height: 2.1vw;
-
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+  }
+  .profile-button:hover .navbar-profile-pic {
+    transform: scale(1.05);
   }
 .dropdown-container {
   position: absolute;
-  left: -5vw;
-  top: 2.8vw;
-  width: 14vw;
-  background-color: #fff4f2;
-  border-radius: 0.5vw;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-  padding: 0.5vw 0;
+  right: 0;
+  top: calc(100% + 8px);
+  min-width: 180px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  padding: 8px 0;
   transition: all 0.3s ease;
+  border: 1px solid rgba(245, 127, 23, 0.1);
+  list-style: none;
+  margin: 0;
 }
 
 .drop-down-element {
   display: flex;
   align-items: center;
-  gap: 1vw;
-  padding: 0.3vw 1vw;
+  gap: 12px;
+  padding: 12px 16px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
+  color: #333;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
 }
 
 .drop-down-element:hover {
-  background-color: #ffe5e0;
+  background-color: rgba(245, 127, 23, 0.08);
+  color: #F57F17;
+}
+
+.drop-down-element p {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: inherit;
 }
 
 .drop-down-element-img {
-  width: 1.8vw;
-  height: 1.8vw;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.drop-down-element:hover .drop-down-element-img {
+  opacity: 1;
 }
 
 .dropdown-container hr {
-  margin: 0.2vw 0;
+  margin: 6px 0;
   border: none;
   height: 1px;
-  background-color: #e0e0e0;
+  background-color: rgba(0, 0, 0, 0.08);
 }
 
 .nav-sidebar{ 

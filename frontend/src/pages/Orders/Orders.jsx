@@ -3,26 +3,20 @@ import "./Orders.css"
 import axios from "axios"
 import { useEffect } from "react"
 import { assets } from "../../assets/frontend_assets/assets"
+import { useGlobalContext } from "../../Context/Context"
+
 function Orders() {
+  const { url } = useGlobalContext()
   const [data,setData] = useState([])
   const fetchallorders = async ()=>{
-    const response  = await axios.post(`https://restaurant-project-ek2l.onrender.com/api/order/allorders`,{},
-      {
-        headers:{
-          Authorization :`Bearer ${localStorage.getItem("token")}`
-        }
-      }
-    )
+    const response  = await axios.post(`${url}/api/order/allorders`,{})
     if(response.data.success){
        setData(response.data.data)
     }
   }
   const onChangeHandler = async (e,orderId)=>{
     const status = e.target.value
-    const response = await axios.post(`https://restaurant-project-ek2l.onrender.com/api/order/status`,{orderId,status:status},
-      {headers:{
-        Authorization:`Bearer ${localStorage.getItem("token")}`
-      }})
+    const response = await axios.post(`${url}/api/order/status`,{orderId,status:status})
       console.log(response)
     if(response.data.success){
       fetchallorders()

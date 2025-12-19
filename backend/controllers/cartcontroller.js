@@ -19,7 +19,6 @@ const removefromcart = async (req,res)=>{
     try{
     let user = await userModel.findById(req.body.userId)
     let cartData =  user.cartData 
-    console.log(cartData)
     if(cartData[req.body.itemId]>0){
         cartData[req.body.itemId]-=1
     }

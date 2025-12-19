@@ -21,11 +21,7 @@ function CategList() {
  
 
   const removeItem = async (itemId)=>{
-    const response = await axios.post(`https://restaurant-project-ek2l.onrender.com/api/category/removeCategory`,{id:itemId},
-        {headers:{
-            Authorization:`Bearer ${localStorage.getItem("token")}`
-        }}
-    )
+    const response = await axios.post(`https://restaurant-project-ek2l.onrender.com/api/category/removeCategory`,{id:itemId})
     if(response.data.success){
       toast.success(response.data.message)
       fetchCategories()
@@ -38,13 +34,7 @@ function CategList() {
 
     console.log(foodId)
     try{
-      const response = await axios.get(`https://restaurant-project-ek2l.onrender.com/api/category/fetchEditedCateg?id=${foodId}`,
-        {
-            headers:{
-                Authorization:`Bearer ${localStorage.getItem("token")}`
-            }
-        }
-      )
+      const response = await axios.get(`https://restaurant-project-ek2l.onrender.com/api/category/fetchEditedCateg?id=${foodId}`)
       console.log(response)
       setData(
         {
@@ -74,13 +64,7 @@ const handleSubmit = async (e) => {
       formData.append("imageFilename", data.image);
     }
 
-    const response = await axios.post("https://restaurant-project-ek2l.onrender.com/api/category/editCategory", formData,
-        {
-            headers:{
-                Authorization:`Bearer ${localStorage.getItem("token")}`
-            }
-        }
-    );
+    const response = await axios.post("https://restaurant-project-ek2l.onrender.com/api/category/editCategory", formData);
     console.log(response.data);
     setOpenEditForm(false);
     fetchCategories()

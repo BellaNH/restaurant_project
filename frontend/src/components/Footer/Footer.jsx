@@ -8,7 +8,7 @@ const Footer = ()=>{
         <footer className={JSON.parse(localStorage.getItem("isAdmin")) ? "admin_footer":"footer"} id="footer">
             <div className="footer-content">
                 <div className="left">
-                    <img src={assets.restaurant_logo} className="footer-left-logo" alt=""/>
+                    <img src={assets.restaurant_logo} className="footer-left-logo" alt="Restaurant logo"/>
                     <p className="left-footer-text"> Welcome to Restaurant — where fresh ingredients meet passion. 
         We pride ourselves on serving authentic dishes prepared daily 
         with love and care for every guest. Come taste the difference!</p>

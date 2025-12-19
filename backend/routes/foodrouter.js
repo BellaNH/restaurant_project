@@ -1,6 +1,10 @@
 import express from "express"
 import { addFood, listFood, removeFood ,editFood,fetchEditedFood} from "../controllers/foodcontroller.js"
 import multer from "multer"
+import authAdmin from "../middleware/authAdmin.js"
+import { validate } from "../middleware/validation.js"
+import { foodSchema, editFoodSchema, removeFoodSchema } from "../middleware/validationSchemas.js"
+import { validateImageUpload, requireFileUpload } from "../middleware/fileUploadValidation.js"
 
 const foodRouter = express.Router();
 
@@ -14,9 +18,11 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({storage:storage})
-foodRouter.post("/add",upload.single("image"),addFood)
+// Public route - anyone can view food list
 foodRouter.get("/list",listFood)
-foodRouter.post("/remove",removeFood)
-foodRouter.post("/edit",upload.single("image"),editFood)
-foodRouter.get("/fetchEditedFood",fetchEditedFood)
+// Admin routes - require admin authentication
+foodRouter.post("/add",authAdmin,upload.single("image"),requireFileUpload,validateImageUpload,validate(foodSchema),addFood)
+foodRouter.post("/remove",authAdmin,validate(removeFoodSchema),removeFood)
+foodRouter.post("/edit",authAdmin,upload.single("image"),validateImageUpload,validate(editFoodSchema),editFood)
+foodRouter.get("/fetchEditedFood",authAdmin,fetchEditedFood)
 export default foodRouter;

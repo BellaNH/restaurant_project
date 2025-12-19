@@ -1,23 +1,23 @@
 import ordermodel from "../models/ordermodel.js"
 import Stripe from "stripe"
 import userModel from "../models/usermodel.js" 
+import { DELIVERY_FEE, STRIPE_CURRENCY } from "../config/constants.js"
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 const placeorder = async (req,res)=>{
-    const frontend_url = "http://localhost:5173/"
+    const frontend_url = process.env.FRONTEND_URL || "http://localhost:5173/"
     try{
     const newOrder = new ordermodel({
         userId:req.body.userId,
-        adress:req.body.ordersdata.adress,
+        address:req.body.ordersdata.address || req.body.ordersdata.adress,
         items:req.body.ordersdata.items,
         amount:req.body.ordersdata.amount,
     })
-    console.log(newOrder)
     await newOrder.save()
     await userModel.findByIdAndUpdate(req.body.userId,{cartData:{}})
     const line_items = newOrder.items.map((item)=>({
         price_data:{
-            currency:"usd",
+            currency:STRIPE_CURRENCY,
             product_data:{
                 name:item.name
             },
@@ -27,11 +27,11 @@ const placeorder = async (req,res)=>{
     })) 
     line_items.push({
         price_data:{
-            currency:"usd",
+            currency:STRIPE_CURRENCY,
             product_data:{
                 name:"Delivery charges"
             },
-            unit_amount:2*100
+            unit_amount:DELIVERY_FEE*100
         },
         quantity:1
     })
@@ -48,7 +48,6 @@ const placeorder = async (req,res)=>{
 }
 const verifyOrder =  async (req,res)=>{
     const {success,orderId}=req.body
-    console.log(success,orderId)
     if(success===true){
         await ordermodel.findByIdAndUpdate(orderId,{status:true})
         res.json({success:true,message:"order successfuly payed"})
@@ -58,11 +57,9 @@ const verifyOrder =  async (req,res)=>{
     }
 }
 const myOrders = async (req,res)=>{
-    console.log(req.body.userId)
     try{
         const orders = await ordermodel.find({userId:req.body.userId})
         res.json({success:true,data:orders})
-        console.log(orders)
     }catch(error){
         res.json({success:false,message:"error"})
     }  

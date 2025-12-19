@@ -15,12 +15,7 @@ const Verifyorder = ()=>{
     const verifyorder = async ()=>{
         const response = await axios.post(`${url}/api/order/verifyorder`,
             {success: success==="true"
-            ,orderId},
-            {
-                headers:{
-                    Authorization :`Bearer ${localStorage.getItem("token")}`
-                }
-            }
+            ,orderId}
         )
         console.log(response)
         if(response.data.success){

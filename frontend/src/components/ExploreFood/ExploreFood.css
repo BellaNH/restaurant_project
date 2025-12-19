@@ -74,19 +74,28 @@
   padding-bottom: 1vw;
   scroll-behavior: smooth;     
   margin-top: 20px;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(245, 127, 23, 0.6) rgba(0, 0, 0, 0.05); /* Firefox */
 }
 
 .menu-list::-webkit-scrollbar {
-  height: 4px;
+  height: 6px;
 }
 
 .menu-list::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2); 
-  border-radius: 4px;
+  background-color: rgba(245, 127, 23, 0.6); 
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.menu-list::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(245, 127, 23, 0.8);
 }
 
 .menu-list::-webkit-scrollbar-track {
-  background: transparent;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
 }
 
 .section {
@@ -97,17 +106,18 @@
 
 
 .menu hr {
-  height: 0.3vw;
+  height: 0.2vw;
   background-color: transparent;
 }
 
 .section-img {
-  width: 7vw;
-  height: 15vh;
+  width: 6vw;
+  height: 6vw;
   margin-bottom: 0.5vw;
   border-radius: 50%;
   cursor: pointer;
   transition: transform 0.2s;
+  object-fit: cover;
 }
 
 .section-img:hover {
@@ -118,6 +128,9 @@
   font-size: 1.2vw;
   color: #333;
   font-weight: 500;
+  text-align: center;
+  margin: 0;
+  width: 100%;
 }
 
 .active {
@@ -211,22 +224,40 @@
   .section {
     flex: 0 0 auto;
     text-align: center;
-    width: 14vw;
+    width: 10vw;
   }
 
   .section-img {
-    width: 12vw; 
-    height: 12vw; 
+    width: 8vw; 
+    height: 8vw; 
     object-fit: cover;
   }
 
   .section-name {
     font-size: 1.1rem;
     margin-top: 0.8rem;
+    text-align: center;
+    margin-left: 10%;
+    width: 100%;
   }
 
   .menu-list::-webkit-scrollbar {
-    display: none; 
+    height: 6px;
+    display: block;
+  }
+
+  .menu-list::-webkit-scrollbar-thumb {
+    background-color: rgba(245, 127, 23, 0.6);
+    border-radius: 6px;
+  }
+
+  .menu-list::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(245, 127, 23, 0.8);
+  }
+
+  .menu-list::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
   }
 }
 @media (max-width: 950px) {
@@ -274,7 +305,7 @@
   }
   .section-name {
     font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-    text-align: center;
+    margin-left: 50%;
   }
   .category-add-form {
     position: absolute;
@@ -322,14 +353,17 @@
   width: 12vw;
 }
 .section-img {
-  width: 10vw;
-  height: 8vh;
+  width: 7vw;
+  height: 7vw;
+  object-fit: cover;
 }
 .menu-list::-webkit-scrollbar {
   display: none;
 }
 .section-name{
-  margin-left: 4px;
+  text-align: center;
+  margin-left: 20%;
+  width: 100%;
 }
 }
 

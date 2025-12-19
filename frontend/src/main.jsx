@@ -4,9 +4,12 @@ import './index.css'
 import App from './App.jsx'
 import {BrowserRouter} from 'react-router-dom'
 import { AppProvider } from "./Context/Context.jsx";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.jsx";
 
 createRoot(document.getElementById('root')).render(
    <BrowserRouter>
-      <AppProvider><App /></AppProvider>
+      <ErrorBoundary>
+        <AppProvider><App /></AppProvider>
+      </ErrorBoundary>
    </BrowserRouter>
 )

@@ -8,7 +8,7 @@ import { useGlobalContext } from "../../Context/Context";
 const ExploreFood = ({selectedCategory,setSelectedCategory})=> {
   const [image,setImage]= useState(null)
   const [isOpenedForm,setIsopenedForm] = useState(false)
-  const {categories,fetchCategories,isAdmin, setIsAdmin}= useGlobalContext()
+  const {categories,fetchCategories,isAdmin,url,categoriesLoading}= useGlobalContext()
 
   const [data,setData]= useState({
     name:"",
@@ -20,7 +20,6 @@ const ExploreFood = ({selectedCategory,setSelectedCategory})=> {
     const name = e.target.name;
     const value = e.target.value;
     setData((data)=>({...data,[name]:value}))
-    console.log(data)
   }
   
   const onSubmitHandler = async (e)=>{
@@ -28,12 +27,7 @@ const ExploreFood = ({selectedCategory,setSelectedCategory})=> {
     const formData = new FormData();
     formData.append("name",data.name);
     formData.append("image",image);
-    const response = await axios.post(`https://restaurant-project-ek2l.onrender.com/api/category/addCategory`,formData,
-      {headers:{
-        Authorization:`Bearer ${localStorage.getItem("token")}`
-      }}
-    );
-    console.log(response)
+    const response = await axios.post(`${url}/api/category/addCategory`,formData);
     if(response.data.success){
       setIsopenedForm(!isOpenedForm)
       setData({
@@ -86,8 +80,10 @@ const ExploreFood = ({selectedCategory,setSelectedCategory})=> {
         <p className="section-name">{section.name}</p>
       </div>
     ))
-  ) : (
+  ) : categoriesLoading ? (
     <p>Loading categories...</p>
+  ) : (
+    <p>No categories found.</p>
   )}
 </div>
 

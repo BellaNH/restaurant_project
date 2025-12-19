@@ -2,6 +2,7 @@ import foodmodel from "../models/foodmodel.js";
 import fs from "fs"
 const addFood = async (req,res)=>{
     try{
+        // Input is already validated and sanitized by middleware
         let image_filename = `${req.file.filename}`;
         const food = new foodmodel({
         name:req.body.name,
@@ -13,23 +14,42 @@ const addFood = async (req,res)=>{
         await food.save();
         return res.json({success:true,message:"food added successfuly"})
     } catch(error){
-        console.log(error)
         return res.json({success:false,message:"Error"})
     }
 }
 const listFood = async (req,res)=>{
     try{
-        const listfood = await foodmodel.find({})
-        return res.json({success:true,data:listfood})
+        const page = parseInt(req.query.page,10) || 1;
+        const limit = parseInt(req.query.limit,10) || 12;
+        const skip = (page - 1) * limit;
+
+        const [items,total] = await Promise.all([
+            foodmodel
+                .find({})
+                .select("name description price image category createdAt")
+                .sort({createdAt:-1})
+                .skip(skip)
+                .limit(limit),
+            foodmodel.countDocuments()
+        ]);
+
+        return res.json({
+            success:true,
+            data:items,
+            pagination:{
+                page,
+                limit,
+                total,
+                pages: Math.ceil(total/limit)
+            }
+        })
     }catch(error){
         return res.json({success:false,message:"error"})     
     }
 }
 const fetchEditedFood = async (req,res)=>{
     try{
-        console.log(req.query.id)
         const editedFood = await foodmodel.findById(req.query.id)
-        console.log(editedFood)
         return res.json({success:true,data:editedFood})
     }catch(error){
         return res.json({success:false,message:"error"})     
