@@ -647,27 +647,102 @@ export const sendVerifyOtp = async (req, res) => {
       ),
     };
 
-    console.log(`[SEND_VERIFY_OTP] Preparing to send email:`);
-    console.log(`[SEND_VERIFY_OTP] From: ${mailOptions.from}`);
-    console.log(`[SEND_VERIFY_OTP] To: ${mailOptions.to}`);
-    console.log(`[SEND_VERIFY_OTP] SMTP_USER: ${process.env.SMTP_USER ? "SET" : "NOT SET"}`);
-    console.log(`[SEND_VERIFY_OTP] SMTP_PASS: ${process.env.SMTP_PASS ? `SET (length: ${process.env.SMTP_PASS.length})` : "NOT SET"}`);
-
-    const emailStart = Date.now();
-    const emailResult = await transporter.sendMail(mailOptions);
-    console.log(`[SEND_VERIFY_OTP] Email sent successfully in ${Date.now() - emailStart}ms`);
-    console.log(`[SEND_VERIFY_OTP] Email message ID: ${emailResult.messageId}`);
-    console.log(`[SEND_VERIFY_OTP] Email response: ${emailResult.response || "No response"}`);
-
-    const totalTime = Date.now() - startTime;
-    console.log(`[SEND_VERIFY_OTP] Total request time: ${totalTime}ms`);
-    console.log(`[SEND_VERIFY_OTP] ========== SUCCESS ==========`);
-
-    return res.status(200).json({ 
+    // CRITICAL: Send response IMMEDIATELY after saving OTP
+    // Do NOT wait for email to send - it happens in background
+    console.log(`[SEND_VERIFY_OTP] Sending response immediately (email will be sent in background)`);
+    
+    const responsePayload = { 
       success: true, 
-      message: "Verification OTP sent to your email",
-      messageId: emailResult.messageId
-    });
+      message: "Verification OTP sent to your email"
+    };
+    
+    res.status(200).json(responsePayload);
+    
+    const responseTime = Date.now() - startTime;
+    console.log(`[SEND_VERIFY_OTP] Response sent in ${responseTime}ms, headersSent: ${res.headersSent}`);
+    console.log(`[SEND_VERIFY_OTP] ========== RESPONSE SENT (EMAIL IN BACKGROUND) ==========`);
+
+    // Send email AFTER response is sent (truly non-blocking)
+    if (res.headersSent) {
+      setImmediate(() => {
+        try {
+          console.log(`[SEND_VERIFY_OTP] Background: ========== EMAIL SENDING STARTED ==========`);
+          console.log(`[SEND_VERIFY_OTP] Background: Timestamp: ${new Date().toISOString()}`);
+          console.log(`[SEND_VERIFY_OTP] Background: User ID: ${user._id}`);
+          console.log(`[SEND_VERIFY_OTP] Background: User email: ${user.email}`);
+          console.log(`[SEND_VERIFY_OTP] Background: OTP to send: ${otp}`);
+          console.log(`[SEND_VERIFY_OTP] Background: Preparing to send email:`);
+          console.log(`[SEND_VERIFY_OTP] Background: From: ${mailOptions.from}`);
+          console.log(`[SEND_VERIFY_OTP] Background: To: ${mailOptions.to}`);
+          console.log(`[SEND_VERIFY_OTP] Background: SMTP_USER: ${process.env.SMTP_USER ? "SET" : "NOT SET"}`);
+          console.log(`[SEND_VERIFY_OTP] Background: SMTP_PASS: ${process.env.SMTP_PASS ? `SET (length: ${process.env.SMTP_PASS.length})` : "NOT SET"}`);
+          
+          const emailStartTime = Date.now();
+          
+          // Add timeout to email sending to prevent hanging indefinitely
+          const emailPromise = transporter.sendMail(mailOptions);
+          const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error("Email sending timeout after 60 seconds")), 60000)
+          );
+          
+          Promise.race([emailPromise, timeoutPromise])
+            .then((result) => {
+              const emailTime = Date.now() - emailStartTime;
+              console.log(`[SEND_VERIFY_OTP] Background: ========== EMAIL SENT SUCCESSFULLY ==========`);
+              console.log(`[SEND_VERIFY_OTP] Background: Email sent in ${emailTime}ms`);
+              console.log(`[SEND_VERIFY_OTP] Background: User ID: ${user._id}`);
+              console.log(`[SEND_VERIFY_OTP] Background: Email sent to: ${user.email}`);
+              console.log(`[SEND_VERIFY_OTP] Background: Message ID: ${result.messageId || "No message ID"}`);
+              console.log(`[SEND_VERIFY_OTP] Background: Email response: ${result.response || "No response"}`);
+              console.log(`[SEND_VERIFY_OTP] Background: OTP sent: ${otp}`);
+              console.log(`[SEND_VERIFY_OTP] Background: ==========================================`);
+            })
+            .catch((emailError) => {
+              const emailTime = Date.now() - emailStartTime;
+              console.error(`[SEND_VERIFY_OTP] Background: ========== EMAIL SENDING FAILED AFTER ${emailTime}ms ==========`);
+              console.error(`[SEND_VERIFY_OTP] Background: User ID: ${user._id}`);
+              console.error(`[SEND_VERIFY_OTP] Background: Email attempted: ${user.email}`);
+              console.error(`[SEND_VERIFY_OTP] Background: OTP that should have been sent: ${otp}`);
+              console.error(`[SEND_VERIFY_OTP] Background: Error name: ${emailError.name || "NO_NAME"}`);
+              console.error(`[SEND_VERIFY_OTP] Background: Error code: ${emailError.code || "NO_CODE"}`);
+              console.error(`[SEND_VERIFY_OTP] Background: Error message: ${emailError.message || "NO_MESSAGE"}`);
+              console.error(`[SEND_VERIFY_OTP] Background: Full error:`, emailError);
+              
+              // Common Gmail errors with detailed guidance
+              if (emailError.code === "EAUTH") {
+                console.error(`[SEND_VERIFY_OTP] Background: ========== GMAIL AUTHENTICATION ERROR ==========`);
+                console.error(`[SEND_VERIFY_OTP] Background: Gmail rejected the login credentials`);
+                console.error(`[SEND_VERIFY_OTP] Background: SOLUTION: Use an App Password, not your regular Gmail password`);
+                console.error(`[SEND_VERIFY_OTP] Background: Steps:`);
+                console.error(`[SEND_VERIFY_OTP] Background: 1. Enable 2-Step Verification on your Google Account`);
+                console.error(`[SEND_VERIFY_OTP] Background: 2. Generate an App Password at: https://myaccount.google.com/apppasswords`);
+                console.error(`[SEND_VERIFY_OTP] Background: 3. Use the 16-character App Password in SMTP_PASS`);
+                console.error(`[SEND_VERIFY_OTP] Background: 4. Make sure SMTP_USER is your full email address`);
+                console.error(`[SEND_VERIFY_OTP] Background: ================================================`);
+              } else if (emailError.code === "ECONNECTION") {
+                console.error(`[SEND_VERIFY_OTP] Background: ========== GMAIL CONNECTION ERROR ==========`);
+                console.error(`[SEND_VERIFY_OTP] Background: Cannot connect to Gmail SMTP server`);
+                console.error(`[SEND_VERIFY_OTP] Background: Possible causes:`);
+                console.error(`[SEND_VERIFY_OTP] Background: - Internet connection issue`);
+                console.error(`[SEND_VERIFY_OTP] Background: - Firewall blocking SMTP connections`);
+                console.error(`[SEND_VERIFY_OTP] Background: - Gmail servers temporarily unavailable`);
+                console.error(`[SEND_VERIFY_OTP] Background: ==========================================`);
+              } else if (emailError.message && emailError.message.includes("timeout")) {
+                console.error(`[SEND_VERIFY_OTP] Background: ========== EMAIL SENDING TIMEOUT ==========`);
+                console.error(`[SEND_VERIFY_OTP] Background: Email sending took longer than 60 seconds`);
+                console.error(`[SEND_VERIFY_OTP] Background: Gmail SMTP is very slow or unresponsive`);
+                console.error(`[SEND_VERIFY_OTP] Background: Consider using a different email service for production`);
+                console.error(`[SEND_VERIFY_OTP] Background: ==========================================`);
+              }
+              console.error(`[SEND_VERIFY_OTP] Background: ==========================================`);
+            });
+        } catch (emailSetupError) {
+          console.error(`[SEND_VERIFY_OTP] Background: Error setting up email:`, emailSetupError);
+        }
+      });
+    }
+    
+    return;
   } catch (error) {
     const totalTime = Date.now() - startTime;
     console.error(`[SEND_VERIFY_OTP] ========== ERROR AFTER ${totalTime}ms ==========`);

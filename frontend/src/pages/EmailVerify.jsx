@@ -160,7 +160,7 @@ const EmailVerify = () => {
       const { data } = await axios.post(
         `${url}/api/auth/send-verify-otp`,
         { userId },
-        { timeout: 15000, withCredentials: true }
+        { timeout: 60000, withCredentials: true } // Increased to 60 seconds for slow email delivery
       );
 
       console.log("[RESEND_OTP] Response received:", data);
